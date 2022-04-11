@@ -1,0 +1,16 @@
+.container{
+    margin-top: 150px;
+    margin-left: 300px
+    width: 
+    padding: 600px;
+    background: #f2f2f2;
+    border: 5px solid #aaa;
+}
+.content{
+    padding: 580px;
+    border: 3px solid orange;
+}
+
+#search-results {
+    height: 110vh;
+}
