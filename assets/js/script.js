@@ -6,128 +6,7 @@
 
 
 
-// handle displaying the time
-function displayTime() {
-    var rightNow = moment().format('MMM DD, YYYY [at] hh:mm:ss a');
-    return rightNow;
-}
 
-
-//SET A TIMER
-function setTimer(timeInSecs, timerDomElement) {
-    timerInterval = setInterval(function () {
-        timeInSecs--;
-        minutesLeft = Math.floor(timeInSecs / 60);
-        secondsRemainder = (timeInSecs - (minutesLeft * 60));
-        timerDomElement = " -- " + minutesLeft + " mins " + secondsRemainder + " seconds left!";
-        if (timeInSecs === 0) {
-            clearInterval(timerInterval);
-            timerDomElement = "Out of time...";
-        }
-        return timeInSecs;
-    }, 1000);
-}
-
-//Text array assigned to DOM element array within container
-function textArrToExistingDOMArr(container, arrDomElements, arrOfText) {
-    const forceArray = (v) => [].concat(v).map(name => name);
-    let arrDomElements = forceArray(arrDomElements);
-    let arrOfText = forceArray(arrOfText);
-    if (arrDomElements.length > arrOfText.length) {
-        for (var i = 0; i < arrOfText.length; i++) {
-            container.arrDomElements.at(i).textContent = arrOfText.at(i);
-        }
-    } else {
-        for (var i = 0; i < arrDomElements.length; i++) {
-            container.arrDomElements.at(i).textContent = arrOfText.at(i);
-        }
-    }
-    return console.log('Text from array added to ' + i + ' DOM elements');
-}
-
-
-//Get storage
-function retrieveStoredArray(storedDataName) {
-    const forceArray = (v) => [].concat(v).map(name => name);
-    var storedArray = forceArray(JSON.parse(localStorage.getItem(storedDataName)));
-    return storedArray;
-}
-
-
-//Set storage
-function storeArray(assignName, data) {
-    const forceArray = (v) => [].concat(v).map(name => name);
-    var sendToStorage = JSON.stringify(forceArray(data));
-    localStorage.setItem(assignName, sendToStorage);
-    return console.log('Stored ' + assignName + ' as: ' + sendToStorage)
-}
-
-
-//Update storage
-function updateStoredArray(storedDataName, addData) {
-    const forceArray = (v) => [].concat(v).map(name => name);
-    var storedArray = JSON.parse(localStorage.getItem(storedDataName));
-    if (typeof storedArray === 'string' && storedArray.length > 0) {
-        storedArray = forceArray(JSON.parse(localStorage.getItem(storedDataName)));
-        var combinedArray = storedArray.push(addData);
-        var backToStorage = JSON.stringify(combinedArray);
-    } else if (typeof storedarray === 'object') {
-        var combinedArray = storedArray.push(addData);
-        var backToStorage = JSON.stringify(combinedArray);
-    } else {
-        var backToStorage = JSON.stringify(forceArray(addData));
-    }
-    localStorage.setItem(storedDataName, backToStorage);
-    return console.log('Stored ' + storedDataName + ' as: ' + backToStorage)
-}
-
-
-
-//Create DOM elements from array; Append them to a container; Add text to to them from an array
-function createAppendAndTextByArray(containerToFill, createdTagName, textArrToAppend) {
-    if (textArrToAppend.length > 0) {
-        let containerToFill;
-        let createdTagName;
-        let textArrToAppend;
-        for (var i = 0; i < textArrToAppend.length; i++) {
-            createdTagName = document.createElement("li");
-            createdTagName.textContent = textArrToAppend.at(i);
-            container.appendChild(textArrToAppend.at(i));
-        }
-        return console.log('Within ' + container + ' ' + textArrToAppend.length + ' ' + createdTagName + '\'s of text were created');
-    }
-    return console.log('Your array was empty');
-}
-
-
-//Randomw selection within an array
-function getRandomArrIndex(arr) {
-    var i = Math.floor(Math.random() * arr.length);
-    return i;
-}
-
-
-//Sort an array of numbers
-function sortNumArray(numArray) {
-    var swap = true;
-    var save1st;
-    var compare1;
-    var compare2;
-    for (var j = 0; j < numArray.length; j++) {
-        for (var i = 0; i < numArray.length; i++) {
-            swap = false;
-            compare1 = numArray[i];
-            compare2 = numArray[(i + 1)];
-            if (compare1 > compare2) {
-                save1st = compare1;
-                numArray[i] = compare2;
-                numArray[i + 1] = save1st;
-                swap = true;
-            }
-        }
-    }
-    return numArray;
-}
 
 
 
@@ -146,8 +25,15 @@ function sortNumArray(numArray) {
 
 // Radio station api for the bottom row (rapidApi) (possibly) = 
 
-// Using TAILWIND for formatting 
+// Using Bulma for formatting 
+
+
+
+
+
 //Create a container
+$('main').append($('<div>').addClass('column is-one-third box').text('hello'));
+
 
 // then have ~3 rows
 //  within first row: 2 columns. 
@@ -176,17 +62,6 @@ function sortNumArray(numArray) {
 
 
 
-//Main section Div class via JQuery
-
-$(document).ready(function(){
-    
-        // Creating a div element at the end
-        $(".container").append('<div class="content">Appended DIV</div>');   
- 
-        // Creating a div element at the start
-        $(".container").prepend('<div class="content">Prepended DIV</div>'); 
-    );    
-});
 
 
 
