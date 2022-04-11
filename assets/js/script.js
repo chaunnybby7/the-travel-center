@@ -1,11 +1,5 @@
 
 
-
-
-
-
-
-
 //SET GLOBAL VARIABLES ABOVE
 //---------------------------------------------------------------------------------------------------------------
 //DEFINE UTILITY FUNCTIONS BELOW
@@ -141,32 +135,46 @@ function sortNumArray(numArray) {
 //------------------------------------------------------------------------------------------------------------------
 //LISTEN AND TAKE ACTION BELOW
 
+// Fecth for first api (natural disasters) (https://www.programmableweb.com/api/foreca-weather-warnings-feed-rest-api)
+// First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
+
+// fetch second api (set global variables) var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*'
+
+// fetch third api for map (tomtom) (possibly) https://developer.tomtom.com/products/traffic-api
+
+// fetch fourth api for media (national news agency) (NewApi.org) https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=588c1b13240446baa7e3517d3a8afdaa key=588c1b13240446baa7e3517d3a8afdaa
+
+// Radio station api for the bottom row (rapidApi) (possibly) = 
+
+// Using TAILWIND for formatting 
+//Create a container
+
+// then have ~3 rows
+//  within first row: 2 columns. 
+//      First column is the map (possibly use html modal)
+//      second column is the nav bar (possibly use html modal)
+// CODE BETWEEN THE LINES
+
+// within second row: 5 columns (dynamically create from javascript)
+    // First:searchbox and search history.
+    // Second column: natural disaster
+    // third column is live events and gatherings.
+    // Fourth is current traffic conditions.
+    // fifth is media
+// CODE BETWEEN THE LINES
+
+// Third row
+    // One column for radio (possibly use html modal)
+// CODE BETWEEN THE LINES
 
 
-function doingTheWorkHere() {
-    //TAKE INITIAL ACTION
-    //SET NEXT ITERATIVE CONDITIONS
-    //TEST CONDITION #1------------------------------------------------------
-    if (true) {
-        //TAKE ACTION
-        //SET NEXT ITERATIVE CONDITIONS
-        //TESTCONDITION  #2--------------------------------------------------
-    } else if (true) {
-        //TAKE ACTION
-        //SET NEXT ITERATIVE CONDITIONS
-        //TEST CONDITION #3--------------------------------------------------
-    } else if (true) {
-        //TAKE ACTION
-        //SET NEXT ITERATIVE CONDITIONS
-        //TEST CONDITION #4--------------------------------------------------
-    } else if (true) {
-        //TAKE ACTION
-        //SET NEXT ITERATIVE CONDITIONS
-        //TEST CONDITION #5--------------------------------------------------
-    } else if (true) {
-        //TAKE ACTION
-    }
-}
+
+
+
+
+
+
+
 
 //Main section Div class via JQuery
 
