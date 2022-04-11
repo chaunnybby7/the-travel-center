@@ -168,6 +168,19 @@ function doingTheWorkHere() {
     }
 }
 
+//Main section Div class via JQuery
+
+$(document).ready(function(){
+    
+        // Creating a div element at the end
+        $(".container").append('<div class="content">Appended DIV</div>');   
+ 
+        // Creating a div element at the start
+        $(".container").prepend('<div class="content">Prepended DIV</div>'); 
+    );    
+});
+
+
 
 //DEFINE THE PRIMARY FUNCTION ABOVE
 //------------------------------------------------------------------------------------------------------------------
