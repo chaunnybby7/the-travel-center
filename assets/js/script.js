@@ -1,5 +1,6 @@
 // var for the first api
-
+// var for geocode
+var geocode ='https://api.mapbox.com/geocoding/v5/mapbox.places/'+city+'.json?proximity=ip&types=place%2Cpostcode%2Caddress&access_token=pk.eyJ1Ijoia3V5YWRldmluIiwiYSI6ImNsMXY2dHMxajAxcmYzanBhZGl3OHA3NGgifQ.cn8WP0nqC6btnYHuhtYPnw';
 // var for the second api
 var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM&locale=*&startDateTime=2022-04-11T00:01:00Z&endDateTime=2022-04-11T23:59:00Z&city='+ city;
 // var for third api
