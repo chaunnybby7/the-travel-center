@@ -1,5 +1,11 @@
-var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM&locale=*&startDateTime=2022-04-11T00:01:00Z&endDateTime=2022-04-11T23:59:00Z&city='+ city;
+// var for the first api
 
+// var for the second api
+var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM&locale=*&startDateTime=2022-04-11T00:01:00Z&endDateTime=2022-04-11T23:59:00Z&city='+ city;
+// var for third api
+// var for fourth api
+var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=GBXG5EPQF9rQORZISKtLpJ7DKJO9ylEm'
+// var for fifth api
 //SET GLOBAL VARIABLES ABOVE
 //---------------------------------------------------------------------------------------------------------------
 //DEFINE UTILITY FUNCTIONS BELOW
@@ -33,7 +39,18 @@ fetch(ticketmasterApi,{
 // fetch third api for map (tomtom) (possibly) https://developer.tomtom.com/products/traffic-api
 
 // fetch fourth api for media (national news agency) (NewApi.org) https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=588c1b13240446baa7e3517d3a8afdaa key=588c1b13240446baa7e3517d3a8afdaa
-
+fetch(newsApi,{
+    method:'Get',
+    credentials:'same-origin',
+    redirect: 'follow'
+})
+    .then(function(response){
+        console.log(response);
+        return response.json();
+    })
+    .then(function(data){
+    console.log(data);
+    })
 // Radio station api for the bottom row (rapidApi) (possibly) = 
 
 // Using Bulma for formatting 
