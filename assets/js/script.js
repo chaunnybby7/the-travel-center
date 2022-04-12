@@ -1,12 +1,23 @@
+
+var fetchedList = 20;
+var city;
+var lat;
+var lon;
 // var for the first api
 // var for geocode
-var geocode ='https://api.mapbox.com/geocoding/v5/mapbox.places/'+city+'.json?proximity=ip&types=place%2Cpostcode%2Caddress&access_token=pk.eyJ1Ijoia3V5YWRldmluIiwiYSI6ImNsMXY2dHMxajAxcmYzanBhZGl3OHA3NGgifQ.cn8WP0nqC6btnYHuhtYPnw';
+var geocode ='https://api.mapbox.com/geocoding/v5/mapbox.places/' + city + '.json?proximity=ip&types=place%2Cpostcode%2Caddress&access_token=pk.eyJ1Ijoia3V5YWRldmluIiwiYSI6ImNsMXY2dHMxajAxcmYzanBhZGl3OHA3NGgifQ.cn8WP0nqC6btnYHuhtYPnw';
 // var for the second api
-var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM&locale=*&startDateTime=2022-04-11T00:01:00Z&endDateTime=2022-04-11T23:59:00Z&city='+ city;
+var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM&locale=*&startDateTime=2022-04-11T00:01:00Z&endDateTime=2022-04-11T23:59:00Z&city=' + city;
 // var for third api
 // var for fourth api
 var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=GBXG5EPQF9rQORZISKtLpJ7DKJO9ylEm'
 // var for fifth api
+
+
+
+
+
+
 //SET GLOBAL VARIABLES ABOVE
 //---------------------------------------------------------------------------------------------------------------
 //DEFINE UTILITY FUNCTIONS BELOW
@@ -19,10 +30,16 @@ var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=GBXG5EP
 
 //DEFINE UTILITY FUNCTIONS ABOVE
 //------------------------------------------------------------------------------------------------------------------
-//LISTEN AND TAKE ACTION BELOW
+//DEFINE THE PRIMARY FUNCTION BELOW
+
+
+
+function devinsTempFunction() {
 
 // Fecth for first api (natural disasters) (https://www.programmableweb.com/api/foreca-weather-warnings-feed-rest-api)
 // First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
+
+// fetch second api (set global variables) var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*'
 fetch(ticketmasterApi,{
     method:'Get',
     credentials:'same-origin',
@@ -35,7 +52,6 @@ fetch(ticketmasterApi,{
     .then(function(data){
     console.log(data);
     })
-// fetch second api (set global variables) var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*'
 
 // fetch third api for map (tomtom) (possibly) https://developer.tomtom.com/products/traffic-api
 
@@ -54,11 +70,15 @@ fetch(newsApi,{
     })
 // Radio station api for the bottom row (rapidApi) (possibly) = 
 
-// Using Bulma for formatting 
+}
 
 
 
 
+
+function yilinsTempFunction() {
+
+// Using Bulma for formatting
 
 
 // then have ~3 rows
@@ -72,27 +92,48 @@ fetch(newsApi,{
 // On the far left side of Main section, First column:searchbox and search history.
 //Create a container for searched box
 
-$('main').css( { marginTop : "200px" } );
-$('main').append($('<columns>').addClass('is-vcentered is-12'));
-$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Search'));  
+
+$('main').append($('<div>').addClass('column is-vcentered is-12').attr('id', 'search-history'));
+//lets do search history in a for loop to create the list of divs for the history in storage
+// count of 10 history lines?
+for (var i = 0; i < fetchedList; i++) {
+    $('#search-history').append($('<div>').addClass('row').text('asdf'));
+}
+//end of for loop
+
+
+//flex box spaced evenly option in bulma??
+$('main').append($('<div>').addClass('column is-one-fifth box is-pulled-left').attr('id', 'natural-disasters'));
+//lets do natural disasters in a for loop to create the list of divs for the parsed variables
+// count of 10 variable calls?
+$('#natural-disasters').append($('<div>').addClass('row').text());
+//end of for loop
+
+
+$('main').append($('<div>').addClass('column is-one-fifth box is-pulled-left').attr('id', 'live-events'));
+//lets do events in a for loop to create the list of divs for the parsed variables
+// count of 10 variable calls?
+$('#live-events').append($('<div>').addClass('row').text());
+//end of for loop
+
+
+$('main').append($('<div>').addClass('column is-one-fifth box is-pulled-left').attr('id', 'current-traffic'));
+//lets do traffic in a for loop to create the list of divs for the parsed variables
+// count of 10 variable calls?
+$('#current-traffic').append($('<div>').addClass('row').text());
+//end of for loop
+
+
+$('main').append($('<div>').addClass('column is-one-fifth box is-pulled-left').attr('id', 'media-reports'));
+//lets do media in a for loop to create the list of divs for the parsed variables
+// count of 10 variable calls?
+$('#media-reports').append($('<div>').addClass('row').text());
+//end of for loop
 
 
 
-
-
-
-
-// Second column: natural disaster
-$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Natural Disaster'));
-  // third column is live events and gatherings.
-$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Live Events & Gatherings'));
-    // Fourth is current traffic conditions.
-$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Current Traffic Conditions'));
-    // fifth is media
-$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Media'));
-  
-
-
+//radio inside footer
+$('main').append($('<div>').addClass('row box is-pulled-left').attr('id', 'radio-stream'));
 
 
 
@@ -101,6 +142,25 @@ $('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left'
     // One column for radio (possibly use html modal)
 // CODE BETWEEN THE LINES
 
+}
+
+
+
+function davidsTempFunction() {
+
+
+
+}
+
+
+
+
+
+function brennansTempFunction() {
+
+
+
+}
 
 
 
@@ -108,8 +168,10 @@ $('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left'
 
 
 
-
-
+// devinsTempFunction();
+// yilinsTempFunction();
+// davidsTempFunction();
+// brennansTempFunction();
 
 
 
@@ -126,29 +188,6 @@ $('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left'
 
 
 //LISTEN AND TAKE ACTION ABOVE
-//------------------------------------------------------------------------------------------------------------------
-//LISTEN AND TAKE ACTION BELOW
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //------------------------------------------------------------------------------------------------------------------
 //NOTES BELOW HERE
 //------------------------------------------------------------------------------------------------------------------
