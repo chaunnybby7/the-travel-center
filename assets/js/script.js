@@ -60,9 +60,6 @@ fetch(newsApi,{
 
 
 
-//Create a container
-$('main').append($('<div>').addClass('column is-one-third box').text('hello'));
-
 
 // then have ~3 rows
 //  within first row: 2 columns. 
@@ -71,12 +68,34 @@ $('main').append($('<div>').addClass('column is-one-third box').text('hello'));
 // CODE BETWEEN THE LINES
 
 // within second row: 5 columns (dynamically create from javascript)
-    // First:searchbox and search history.
-    // Second column: natural disaster
-    // third column is live events and gatherings.
+
+// On the far left side of Main section, First column:searchbox and search history.
+//Create a container for searched box
+
+$('main').css( { marginTop : "200px" } );
+$('main').append($('<columns>').addClass('is-vcentered is-12'));
+$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Search'));  
+
+
+
+
+
+
+
+// Second column: natural disaster
+$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Natural Disaster'));
+  // third column is live events and gatherings.
+$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Live Events & Gatherings'));
     // Fourth is current traffic conditions.
+$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Current Traffic Conditions'));
     // fifth is media
-// CODE BETWEEN THE LINES
+$('columns').append($('<div>').addClass('column is-one-fifth box is-pulled-left').text('Media'));
+  
+
+
+
+
+
 
 // Third row
     // One column for radio (possibly use html modal)
