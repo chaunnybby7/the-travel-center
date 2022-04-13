@@ -1,5 +1,15 @@
+:root {
+
+}
+
 * {
     border: 1px solid blue;
+}
+
+body {
+    background-image: linear-gradient(
+        lightgray 0%,
+        darkgray 100%);
 }
 
 #map {
@@ -11,4 +21,48 @@
 
 .column.is-2 {
     min-height: 400px;
+}
+
+#search-container {
+    margin-bottom: 33px;
+}
+
+#search-history {
+    background-image: radial-gradient(
+        lightgray 50%,
+        gray 100%);
+    color: whitesmoke;
+    font-weight: bolder;
+}
+
+#alerts {
+    background-image: radial-gradient(
+        rgb(199, 168, 168) 50%,
+        gray 100%);
+        color: whitesmoke;
+        font-weight: bolder;
+}
+
+#live-events {
+    background-image: radial-gradient(
+        rgb(148, 142, 196) 50%,
+        gray 100%);
+        color: whitesmoke;
+        font-weight: bolder;
+}
+
+#current-traffic {
+    background-image: radial-gradient(
+        rgb(185, 157, 95) 50%,
+        gray 100%);
+        color: whitesmoke;
+        font-weight: bolder;
+}
+
+#media-reports {
+    background-image: radial-gradient(
+        rgb(162, 115, 172) 50%,
+        gray 100%);
+        color: whitesmoke;
+        font-weight: bolder;
 }
