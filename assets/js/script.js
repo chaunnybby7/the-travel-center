@@ -127,11 +127,6 @@ function getTomTom() {
             console.log(data);
             trafficAlerts = data.flowSegmentData.roadClosure;
         })
-        let Traffic= "";
-        for (let i=0; i<trafficAlerts.length; i++) {
-            Traffic += trafficAlerts[i];
-            console.log(traffic)
-        }
 }
 
 function getTicketMaster() {
@@ -146,9 +141,11 @@ function getTicketMaster() {
         })
         .then(function (data) {
             console.log(data);
-            todayEvents = data._embedded.events['0'].name
+            todayEvents = data._embedded.events['0'].name;
+            for (i = 0; i < data._embedded.events.length; i++){
+                console.log(data._embedded.events[i].name)
+            }            
         })
-        
 }
 
 
@@ -309,10 +306,10 @@ function constructHeader() {
 
 function constructSearchBox() {
     $('#main').append($('<div>').addClass('container is-flex is-justify-content-center').attr('id', 'search-container'));//Container
-    $('#search-container').append($('<div>').addClass('container is-flex is-justify-content-center').attr('id', 'search-group'));//Container
-    $('#search-group').append($('<span>').addClass('has-text-black').attr('id', 'search-title').text('Search:'));//Left orientation
-    $('#search-group').append($('<input>').addClass('is-12').attr({ id: 'search-input', type: 'text', placeholder: 'Search for a city' }));//Input text box
-    $('#search-group').append($('<button>').addClass('has-text-white').attr('id', 'search-button').text('Search'));//Search button
+    $('#search-container').append($('<div>').addClass('container is-flex is-justify-content-center is-4').attr('id', 'search-group'));//Container
+    $('#search-group').append($('<span>').addClass('').attr('id', 'search-title').text('Search:'));//Left orientation
+    $('#search-group').append($('<input>').addClass('').attr({ id: 'search-input', type: 'text', placeholder: 'Search for a city' }));//Input text box
+    $('#search-group').append($('<button>').addClass('').attr('id', 'search-button').text('Search'));//Search button
 }
 
 function constructMain() {
