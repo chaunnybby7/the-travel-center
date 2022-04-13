@@ -1,6 +1,7 @@
 
 
 var today = dayjs().format();
+var nextWeek = dayjs().add(7, 'day').format();
 var fetchedList = 20;
 var city = 'San Diego';
 var cityConvertURL = convertInputForURL(city);
@@ -18,7 +19,7 @@ var geocodeKey = 'a7e97ca14eb00aee24f5e5ef8502534a';//Devin
 var geocode ='http://api.openweathermap.org/geo/1.0/direct?q=' + cityConvertURL + '&limit=5&appid=' + geocodeKey;
 
 var ticketmasterKey='HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM';
-var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketmasterKey + '&locale=*&startDateTime=' + today + '&city=' + cityConvertURL;
+var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketmasterKey + '&locale=*&startDateTime=' + today + 'Z&endDateTime=' + nextWeek + 'Z&city=' + cityConvertURL;
 
 var tomtomKey='9SVo7CMwOXDtJdDxTNsfWfWgimsIrLTU';//Devin
 var tomtomApi;//Defined in the lead fetch function (requires lat & lon)
@@ -90,6 +91,11 @@ function getTomTom() {
             console.log(data);
             trafficAlerts = data.flowSegmentData.roadClosure;
         })
+        let Traffic= "";
+        for (let i=0; i<trafficAlerts.length; i++) {
+            Traffic += trafficAlerts[i];
+            console.log(traffic)
+        }
 }
 
 function getTicketMaster() {
@@ -104,7 +110,9 @@ function getTicketMaster() {
         })
         .then(function (data) {
             console.log(data);
+            todayEvents = data._embedded.events['0'].name
         })
+        
 }
 
 
@@ -178,6 +186,9 @@ fetch(weatherApi,{
     .then(function(data){
     console.log(data);
     severeWeatherAlert = data.alerts['0'].event;
+    for(var i = 0; i <data.alerts.length; i++ ){
+        console.log(data.alerts[i].event);
+        }
     })
 // // First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
 // fetch(geocode,{
