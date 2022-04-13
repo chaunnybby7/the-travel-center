@@ -162,7 +162,7 @@ function getLatLon(URL) {
         });
 }
 
-function devinsTempFunction() {
+function devinsTempFunction() {}
 
 // Fecth for first api (natural disasters) 
 // fetch(disastersApi,{
@@ -192,8 +192,9 @@ function devinsTempFunction() {
 //     })
 // fetch second api (set global variables) var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*'
 // fetch third api for map (tomtom) (possibly) https://developer.tomtom.com/products/traffic-api
-    // fetch fourth api for media (national news agency) (NewApi.org) https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=588c1b13240446baa7e3517d3a8afdaa key=588c1b13240446baa7e3517d3a8afdaa
-fetch(newsApi,{
+  // fetch fourth api for media (national news agency) (NewApi.org) https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=588c1b13240446baa7e3517d3a8afdaa key=588c1b13240446baa7e3517d3a8afdaa
+  function getnews(newsApi) {
+  fetch(newsApi, {
     method:'Get',
     credentials:'same-origin',
     redirect: 'follow'
@@ -204,6 +205,8 @@ fetch(newsApi,{
     })
     .then(function(data){
     console.log(data);
+    var news = data.results['0'].title
+    console.log(news);
     })
 // Radio station api for the bottom row (rapidApi) (possibly) = 
 }
@@ -281,6 +284,7 @@ function constructFooter() {
 //------------------------------------------------------------------------------------------------------------------
 //LISTEN AND TAKE ACTION BELOW
 getLatLon(weatherAPILatLon);
+getnews(newsApi);
 constructHeader();
 constructSearchBox();
 constructMain();
