@@ -7,7 +7,9 @@ var lon;
 var disastersApi ='https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=a7e97ca14eb00aee24f5e5ef8502534a'
 // var for geocode
 var geocode ='http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=a7e97ca14eb00aee24f5e5ef8502534a';
-// var for the second api
+// Devin's api key for ticketmaster
+var ticketmasterKey='HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM';
+// var for the second api 
 var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM&locale=*&startDateTime=2022-04-11T00:01:00Z&endDateTime=2022-04-11T23:59:00Z&city=' + city;
 // var for third api
 var tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '&' + lon + '&unit=MPH&openLr=false&key=9SVo7CMwOXDtJdDxTNsfWfWgimsIrLTU';
