@@ -87,7 +87,8 @@ function getTomTom() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
+            console.log(data);
+            trafficAlerts = data.flowSegmentData.roadClosure;
         })
 }
 
