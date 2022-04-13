@@ -66,3 +66,14 @@ body {
         color: whitesmoke;
         font-weight: bolder;
 }
+body {
+    background:url(../images/e3254ba120e6e28688b59925ca5a277a.gif) no-repeat center center fixed;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+}
+
+#search-button {
+    border-radius: 10px;
+}
