@@ -1,15 +1,15 @@
 
 
 var today = dayjs().format();
-var apiKeyLatLon = '1371c97168ddd23b4146579d8cbe687b';//BL key
 var apiKeyGeoCode 
 var fetchedList = 20;
 var city = 'San Diego';
-var mapCity = 'San Diego';
 var cityConvertURL = convertInputForURL(city);
 var lat;
 var lon;
 
+var googleAPIKey = 'AIzaSyBRgqXsr0WiJVT2pK9YsH9otZQPkImwJHs';
+var googleMap;//Defined in the lead fetch function (requires lat & lon)
 
 var weatherKey='a7e97ca14eb00aee24f5e5ef8502534a';//Devin
 var weatherAPILatLon = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + weatherKey;//Devin
@@ -52,38 +52,55 @@ function convertInputForURL(input) {
 
 
 function getTomTom() {
-fetch(tomtomApi,{
-    method:'Get',
-    credentials:'same-origin',
-    redirect: 'follow'
-})
-    .then(function(response){
-        console.log(response)
-        // Declare varible/function here
-        return response.json();
+    fetch(tomtomApi, {
+        method: 'Get',
+        credentials: 'same-origin',
+        redirect: 'follow'
     })
-    .then(function(data){
-        console.log(data)
-    })
+        .then(function (response) {
+            console.log(response)
+            // Declare varible/function here
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+        })
 }
 
 function getTicketMaster() {
-fetch(ticketmasterApi,{
-    method:'Get',
-    credentials:'same-origin',
-    redirect: 'follow'
-})
-    .then(function(response){
-        console.log(response);
-        return response.json();
+    fetch(ticketmasterApi, {
+        method: 'Get',
+        credentials: 'same-origin',
+        redirect: 'follow'
     })
-    .then(function(data){
-    console.log(data);
-    })
+        .then(function (response) {
+            console.log(response);
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        })
 }
 
 
-function uponEvent() {
+// Initialize and add the map
+function initMap() {
+    // The location of mapCity
+    const mapCity = { lat: lat, lng: lon };
+    console.log(mapCity);
+    // The map, centered at mapCity
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 4,
+        center: mapCity,
+    });
+    // The marker, positioned at mapCity
+    const marker = new google.maps.Marker({
+        position: mapCity,
+        map: map,
+    });
+}
+
+function activateUponEvent() {
     
     var cityConvertURL = convertInputForURL(city);
     getTomTom()
@@ -111,8 +128,8 @@ function uponEvent() {
                 lon = data.coord.lon;
                 weatherApi = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=' + weatherKey;
                 tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '&' + lon + '&unit=MPH&openLr=false&key='+ tomtomKey;
-                
-                getTomTom();
+                googleMap = 'https://www.google.com/maps/embed/v1/view?key=' + googleAPIKey + '&center=' + lat + ',' + lon + '&zoom=18&maptype=satellite';
+                // getTomTom();
 
             })
             .catch(function (error) {
@@ -209,55 +226,43 @@ function constructMain() {
     }
 }
 
-// Initialize and add the map
-function initMap() {
-    // The location of mapCity
-    const mapCity = { lat: lat, lng: lon };
-    // The map, centered at mapCity
-    const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 4,
-      center: mapCity,
-    });
-    // The marker, positioned at mapCity
-    const marker = new google.maps.Marker({
-      position: mapCity,
-      map: map,
-    });
-  }
-
-
-function davidsTempFunction() {
-    var searchCt = [];
-    function find(c) {
-        for (var i = 0; i < searchCt.length; i++) {
-            if (c.toUpperCase() == searchCt[i]) {
-                return -1;
-            }
-        }
-        return 1;
-    }
-    function displayNews(event) {
-        event.preventDefault();
-        if ($('#search-city').val().trim() !== "") {
-            city = $('#search-city').val().trim();
-            currentNews(city);
-        }
-    }
+function constructFooter() {
+    $('#footer').attr('src', googleMap);
 }
+
+
+// function davidsTempFunction() {
+//     var searchCt = [];
+//     function find(c) {
+//         for (var i = 0; i < searchCt.length; i++) {
+//             if (c.toUpperCase() == searchCt[i]) {
+//                 return -1;
+//             }
+//         }
+//         return 1;
+//     }
+//     function displayNews(event) {
+//         event.preventDefault();
+//         if ($('#search-city').val().trim() !== "") {
+//             city = $('#search-city').val().trim();
+//             currentNews(city);
+//         }
+//     }
+// }
 
 
 
 //DEFINE THE PRIMARY FUNCTION ABOVE
 //------------------------------------------------------------------------------------------------------------------
 //LISTEN AND TAKE ACTION BELOW
-getLatLon();
+getLatLon(weatherAPILatLon);
 constructHeader();
 constructSearchBox();
 constructMain();
-initMap();
+constructFooter();
 
 
-$('#search-button').on('click', activateUponEvent())
+// $('#search-button').on('click', activateUponEvent());
 
 
 //LISTEN AND TAKE ACTION ABOVE
