@@ -1,6 +1,7 @@
 
 
 var today = dayjs().format();
+var nextWeek = dayjs().add(7, 'day').format();
 var fetchedList = 20;
 var city = 'San Diego';
 var cityConvertURL = convertInputForURL(city);
@@ -104,6 +105,7 @@ function getTicketMaster() {
         })
         .then(function (data) {
             console.log(data);
+            todayEvents = data._embedded.events['0'].name
         })
 }
 
