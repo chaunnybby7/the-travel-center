@@ -1,7 +1,6 @@
 
 
 var today = dayjs().format();
-var apiKeyGeoCode 
 var fetchedList = 20;
 var city = 'San Diego';
 var cityConvertURL = convertInputForURL(city);
@@ -29,6 +28,31 @@ var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=' + new
 
 
 // 2022-04-11T23:59:00Z
+
+
+
+var severeWeatherAlert;
+var floodWarning;
+var alertFEMA;//------maybe
+var earthquake;
+
+var todayEvents
+
+var trafficAlerts
+
+var mediaEvents
+
+
+
+
+
+
+
+
+
+
+
+
 
 //SET GLOBAL VARIABLES ABOVE
 //---------------------------------------------------------------------------------------------------------------
@@ -112,31 +136,31 @@ function activateUponEvent() {
 //------------------------------------------------------------------------------------------------------------------
 //DEFINE THE PRIMARY FUNCTION BELOW
 
-    function getLatLon(URL) {
-        fetch(URL, {
-            method: 'GET',
-            credentials: 'same-origin',
-            redirect: 'follow',
+function getLatLon(URL) {
+    fetch(URL, {
+        method: 'GET',
+        credentials: 'same-origin',
+        redirect: 'follow',
+    })
+        .then(function (response) {
+            console.log(response);
+            return response.json();
         })
-            .then(function (response) {
-                console.log(response);
-                return response.json();
-            })
-            .then(function (data) {
-                console.log(data);
-                lat = data.coord.lat;
-                lon = data.coord.lon;
-                weatherApi = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=' + weatherKey;
-                tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '&' + lon + '&unit=MPH&openLr=false&key='+ tomtomKey;
-                googleMap = 'https://www.google.com/maps/embed/v1/view?key=' + googleAPIKey + '&center=' + lat + ',' + lon + '&zoom=18&maptype=satellite';
-                // getTomTom();
+        .then(function (data) {
+            console.log(data);
+            lat = data.coord.lat;
+            lon = data.coord.lon;
+            weatherApi = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=' + weatherKey;
+            tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '&' + lon + '&unit=MPH&openLr=false&key=' + tomtomKey;
+            googleMap = 'https://www.google.com/maps/embed/v1/view?key=' + googleAPIKey + '&center=' + lat + ',' + lon + '&zoom=18&maptype=satellite';
+            // getTomTom();
 
-            })
-            .catch(function (error) {
-                console.log(error);
-                alert('\n\nError:\n\nPlease check your spelling.\n\nIf this problem persists consult the console log for more information.')
-            });
-    }
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert('\n\nError:\n\nPlease check your spelling.\n\nIf this problem persists consult the console log for more information.')
+        });
+}
 
 function devinsTempFunction() {
 
