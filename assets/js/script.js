@@ -4,7 +4,7 @@ var city;
 var lat;
 var lon;
 // var for the first api
-var diastersApi ='https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=a7e97ca14eb00aee24f5e5ef8502534a'
+var disastersApi ='https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=a7e97ca14eb00aee24f5e5ef8502534a'
 // var for geocode
 var geocode ='http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=a7e97ca14eb00aee24f5e5ef8502534a';
 // var for the second api
@@ -38,7 +38,19 @@ var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=GBXG5EP
 
 function devinsTempFunction() {
 
-// Fecth for first api (natural disasters) (https://www.programmableweb.com/api/foreca-weather-warnings-feed-rest-api)
+// Fecth for first api (natural disasters) 
+fetch(disastersApi,{
+    method:'Get',
+    credentials:'same-origin',
+    redirect: 'follow'
+})
+    .then(function(response){
+        console.log(response);
+        return response.json();
+    })
+    .then(function(data){
+    console.log(data);
+    })
 // First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
 
 // fetch second api (set global variables) var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*'
