@@ -147,17 +147,31 @@ $('main').append($('<div>').addClass('row box is-pulled-left').attr('id', 'radio
 
 
 function davidsTempFunction() {
-// $('main').append($('<div>').addClass('<form>').attr('id', 'search-form'));
-// $('search-form').append($('<input>').addClass('type').attr('id', 'search-form').text('Entern An City'));
-// $('search-form').append($('<button>').addClass('btn').attr('id', 'search-btn').text('Search'));
- $('main').append($('<div>').addClass('<field is-grouped>').attr('id', 'searchGroup'));
- $('searchGroup').append($('<p>').addClass('control is-expanded').attr('id', 'searchText'));
- $('searchText').append($('<input>').addClass('input').type('text').attr('id', 'search').placeholder('Search for a city'));
-$('searchGroup').append($('<p>').addClass('control'));
- $('searchGroup').append($('<a>').addClass("button is-info").attr('id', "searchbtn").text('Search'));
+$('main').append($('<input>').addClass('input is-primary').attr({id: 'search-city', placeholder: 'Search For a city'}))
+$('main').append($('<div>').addClass('button').attr('id', 'search-btn').text("Search"));
+$('#search-btn').on('click', davidsTempFunction)
+var searchCt = [];
 
+function find(c) {
+    for (var i = 0; i < searchCt.length; i++) {
+        if(c.toUpperCase() == searchCt[i]){
+            return -1;
+        }
+    }
+    return 1;
+}
+function displayNews(event){
+    event.preventDefault();
+    if($('#search-city').val().trim()!==""){
+        city=$('#search-city').val().trim();
+        currentNews(city);
+    }
+        
+    
+}
 
 }
+
 
 
 
@@ -177,7 +191,7 @@ function brennansTempFunction() {
 
 // devinsTempFunction();
 // yilinsTempFunction();
-// davidsTempFunction();
+ davidsTempFunction();
 // brennansTempFunction();
 
 
