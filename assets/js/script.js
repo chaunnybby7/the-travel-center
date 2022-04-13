@@ -15,6 +15,8 @@ var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=H
 var tomtomKey='9SVo7CMwOXDtJdDxTNsfWfWgimsIrLTU';
 // var for third api
 var tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '&' + lon + '&unit=MPH&openLr=false&key=9SVo7CMwOXDtJdDxTNsfWfWgimsIrLTU';
+// Devin's key for news api
+var newsKey='GBXG5EPQF9rQORZISKtLpJ7DKJO9ylEm'
 // var for fourth api
 var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=GBXG5EPQF9rQORZISKtLpJ7DKJO9ylEm'
 // var for fifth api
