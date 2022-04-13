@@ -276,6 +276,7 @@ function constructFooter() {
 
 
 
+
 //DEFINE THE PRIMARY FUNCTION ABOVE
 //------------------------------------------------------------------------------------------------------------------
 //LISTEN AND TAKE ACTION BELOW
