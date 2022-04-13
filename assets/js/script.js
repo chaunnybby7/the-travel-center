@@ -3,8 +3,12 @@ var fetchedList = 20;
 var city;
 var lat;
 var lon;
+// Devin's key for weather api
+var weatherKey='a7e97ca14eb00aee24f5e5ef8502534a'
 // var for the first api
-var disastersApi ='https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=a7e97ca14eb00aee24f5e5ef8502534a'
+var weatherApi ='https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=a7e97ca14eb00aee24f5e5ef8502534a'
+// Devin's key for geocode
+var geocodeKey = 'a7e97ca14eb00aee24f5e5ef8502534a'
 // var for geocode
 var geocode ='http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=a7e97ca14eb00aee24f5e5ef8502534a';
 // Devin's api key for ticketmaster
@@ -112,8 +116,44 @@ fetch(newsApi,{
     console.log(data);
     })
 // Radio station api for the bottom row (rapidApi) (possibly) = 
-
 }
+//  npm install node-fetch
+
+
+const phq = import('predicthq');
+
+// Initialises PredictHQ client library using your access token
+// Note: You can find/create your access token at https://control.predicthq.com/clients
+const client = new phq.Client({access_token: 'o-ngmg3a614oMJibCQBVQFnHvVnhPQIHOR3CGnrt', fetch: nodeFetch});
+
+// Use the events endpoint
+const phqEvents = client.events;
+
+// Basic event search without any parameters.
+// phqEvents.search() 
+//     .then(
+//         res => {
+//             result = res.toDict();
+//             console.log(`Total number of events: ${res.count}`);
+//             console.log(`Number of events returned in this request: ${result.length}`);
+
+//             for (const event of res.toArray()) {
+
+//                 // See https://developer.predicthq.com/resources/events/#fields for list of all event fields.
+//                 console.log(`Event title: ${event.title}`);
+//                 console.log(`Category: ${event.category}`);
+//                 console.log('Entities:');
+//                 (event.entities || []).forEach(ent => {
+//                     console.log(`(${ent.type}) ${ent.name}`)
+//                 });
+//                 console.log();
+
+//             }
+//         }
+//         ).catch(err => console.error(err));
+
+
+// phqEvents.search()
 
 
 
