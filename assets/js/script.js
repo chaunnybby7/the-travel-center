@@ -2,39 +2,32 @@
 
 var today = dayjs().format();
 var apiKeyLatLon = '1371c97168ddd23b4146579d8cbe687b';//BL key
-var weatherAPIURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + apiKey;//Using BL Key
 var apiKeyGeoCode 
 var fetchedList = 20;
 var city;
 var cityConvertURL = encodeURIComponent(city.trim());
 var lat;
 var lon;
-// Devin's key for weather api
-var weatherKey='a7e97ca14eb00aee24f5e5ef8502534a'
-// var for the first api
-var weatherApi ='https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=a7e97ca14eb00aee24f5e5ef8502534a'
-// Devin's key for geocode
-var geocodeKey = 'a7e97ca14eb00aee24f5e5ef8502534a'
-// var for geocode
-var geocode ='http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=a7e97ca14eb00aee24f5e5ef8502534a';
-// Devin's api key for ticketmaster
+
+
+var weatherKey='a7e97ca14eb00aee24f5e5ef8502534a';//Devin
+var weatherAPIURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + weatherKey;//Devin
+var weatherApi ='https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=' + weatherKey;
+
+var geocodeKey = 'a7e97ca14eb00aee24f5e5ef8502534a';//Devin
+var geocode ='http://api.openweathermap.org/geo/1.0/direct?q=' + cityConvertURL + '&limit=5&appid=' + geocodeKey;
+
 var ticketmasterKey='HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM';
-// var for the second api 
-var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM&locale=*&startDateTime=2022-04-11T00:01:00Z&endDateTime=2022-04-11T23:59:00Z&city=' + city;
-// Devin's key for Tom Tom api
-var tomtomKey='9SVo7CMwOXDtJdDxTNsfWfWgimsIrLTU';
-// var for third api
-var tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '&' + lon + '&unit=MPH&openLr=false&key=9SVo7CMwOXDtJdDxTNsfWfWgimsIrLTU';
-// Devin's key for news api
-var newsKey='GBXG5EPQF9rQORZISKtLpJ7DKJO9ylEm'
-// var for fourth api
-var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=GBXG5EPQF9rQORZISKtLpJ7DKJO9ylEm'
-// var for fifth api
+var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketmasterKey + '&locale=*&startDateTime=' + today + '&city=' + cityConvertURL;
+
+var tomtomKey='9SVo7CMwOXDtJdDxTNsfWfWgimsIrLTU';//Devin
+var tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '&' + lon + '&unit=MPH&openLr=false&key='+ tomtomKey;
+
+var newsKey='GBXG5EPQF9rQORZISKtLpJ7DKJO9ylEm';//Devin
+var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=' + newsKey;
 
 
-
-
-
+// 2022-04-11T23:59:00Z
 
 //SET GLOBAL VARIABLES ABOVE
 //---------------------------------------------------------------------------------------------------------------
@@ -47,7 +40,7 @@ function displayTime() {
     var secNow = dayjs().format('s');
     var ampmNow = dayjs().format('a');
     secondsLeftToday = (((24 - hourNow) * 60 * 60) - (minNow * 60) - secNow);
-    $('#currentDay').text(rightNow);
+    $('#current-day').text(rightNow);
     window.setTimeout("displayTime()", 1000);
 }
 
@@ -58,16 +51,16 @@ function convertInputForURL(input) {
 
 // Initialize and add the map
 function initMap() {
-    // The location of Uluru
-    const uluru = { lat: -25.344, lng: 131.036 };
-    // The map, centered at Uluru
+    // The location of mapCity
+    const mapCity = { lat: lat, lng: lon };
+    // The map, centered at mapCity
     const map = new google.maps.Map(document.getElementById("map"), {
       zoom: 4,
-      center: uluru,
+      center: mapCity,
     });
-    // The marker, positioned at Uluru
+    // The marker, positioned at mapCity
     const marker = new google.maps.Marker({
-      position: uluru,
+      position: mapCity,
       map: map,
     });
   }
@@ -82,31 +75,31 @@ function initMap() {
 function devinsTempFunction() {
 
 // Fecth for first api (natural disasters) 
-fetch(disastersApi,{
-    method:'Get',
-    credentials:'same-origin',
-    redirect: 'follow'
-})
-    .then(function(response){
-        console.log(response);
-        return response.json();
-    })
-    .then(function(data){
-    console.log(data);
-    })
-// First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
-fetch(geocode,{
-    method:'Get',
-    credentials:'same-origin',
-    redirect: 'follow'
-})
-    .then(function(response){
-        console.log(response)
-        return response.json();
-    })
-    .then(function(data){
-        console.log(data)
-    })
+// fetch(disastersApi,{
+//     method:'Get',
+//     credentials:'same-origin',
+//     redirect: 'follow'
+// })
+//     .then(function(response){
+//         console.log(response);
+//         return response.json();
+//     })
+//     .then(function(data){
+//     console.log(data);
+//     })
+// // First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
+// fetch(geocode,{
+//     method:'Get',
+//     credentials:'same-origin',
+//     redirect: 'follow'
+// })
+//     .then(function(response){
+//         console.log(response)
+//         return response.json();
+//     })
+//     .then(function(data){
+//         console.log(data)
+//     })
 // fetch second api (set global variables) var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*'
 fetch(ticketmasterApi,{
     method:'Get',
