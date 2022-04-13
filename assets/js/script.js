@@ -213,8 +213,9 @@ function constructHeader() {
 }
 
 function constructSearchBox() {
-    $('#main').append($('<div>').addClass('container is-justify-content-space-evenly').attr('id', 'search-group'));//Container
-    $('#search-group').append($('<p>').addClass('').attr('id', 'search-title').text('Search:'));//Left orientation
+    $('#main').append($('<div>').addClass('container is-flex is-justify-content-center').attr('id', 'search-container'));//Container
+    $('#search-container').append($('<div>').addClass('container is-flex is-justify-content-center is-4').attr('id', 'search-group'));//Container
+    $('#search-group').append($('<span>').addClass('').attr('id', 'search-title').text('Search:'));//Left orientation
     $('#search-group').append($('<input>').addClass('').attr({ id: 'search-input', type: 'text', placeholder: 'Search for a city' }));//Input text box
     $('#search-group').append($('<button>').addClass('').attr('id', 'search-button').text('Search'));//Search button
 }
@@ -224,27 +225,27 @@ function constructMain() {
     $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly').attr('id', 'all-container'));
 
     $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'search-history'));
-    $('#search-history').append($('<div>').addClass('row').attr('id', 'history-title').text('Search History'));
+    $('#search-history').append($('<div>').addClass('row has-text-centered').attr('id', 'history-title').text('Search History'));
     for (var i = 0; i < fetchedList; i++) {
         $('#search-history').append($('<div>').addClass('row').attr('id', 'history' + i).text('asdf'));//parsed variable for text
     }
     $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'alerts'));
-    $('#alerts').append($('<div>').addClass('row').attr('id', 'alerts-title').text('Alerts'));
+    $('#alerts').append($('<div>').addClass('row has-text-centered').attr('id', 'alerts-title').text('Alerts'));
     for (var i = 0; i < fetchedList; i++) {
         $('#alerts').append($('<div>').addClass('row').attr('id', 'alerts' + i).text('asdf'));//parse variable for text
     }
     $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'live-events'));
-    $('#live-events').append($('<div>').addClass('row').attr('id', 'events-title').text('Events'));
+    $('#live-events').append($('<div>').addClass('row has-text-centered').attr('id', 'events-title').text('Events'));
     for (var i = 0; i < fetchedList; i++) {
         $('#live-events').append($('<div>').addClass('row').attr('id', 'events' + i).text('asdf'));//parse variable for text
     }
     $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'current-traffic'));
-    $('#current-traffic').append($('<div>').addClass('row').attr('id', 'traffic-title').text('Traffic'));
+    $('#current-traffic').append($('<div>').addClass('row has-text-centered').attr('id', 'traffic-title').text('Traffic'));
     for (var i = 0; i < fetchedList; i++) {
         $('#current-traffic').append($('<div>').addClass('row').attr('id', 'traffic' + i).text('asdf'));//parse variable for text
     }
     $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'media-reports'));
-    $('#media-reports').append($('<div>').addClass('row').attr('id', 'media-title').text('Media'));
+    $('#media-reports').append($('<div>').addClass('row has-text-centered').attr('id', 'media-title').text('Media'));
     for (var i = 0; i < fetchedList; i++) {
         $('#media-reports').append($('<div>').addClass('row').attr('id', 'traffic' + i).text('asdf'));//parse variable for text
     }
