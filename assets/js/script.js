@@ -75,6 +75,42 @@ function convertInputForURL(input) {
 }
 
 
+//Get storage
+function retrieveStoredArray(storedDataName) {
+    const forceArray = (v) => [].concat(v).map(name => name);
+    var storedArray = forceArray(JSON.parse(localStorage.getItem(storedDataName)));
+    return storedArray;
+}
+
+
+//Set storage
+function storeArray(assignName, data) {
+    const forceArray = (v) => [].concat(v).map(name => name);
+    var sendToStorage = JSON.stringify(forceArray(data));
+    localStorage.setItem(assignName, sendToStorage);
+    return console.log('Stored ' + assignName + ' as: ' + sendToStorage)
+}
+
+
+//Update storage
+function updateStoredArray(storedDataName, addData) {
+    const forceArray = (v) => [].concat(v).map(name => name);
+    var storedArray = JSON.parse(localStorage.getItem(storedDataName));
+    if (typeof storedArray === 'string' && storedArray.length > 0) {
+        storedArray = forceArray(JSON.parse(localStorage.getItem(storedDataName)));
+        var combinedArray = storedArray.push(addData);
+        var backToStorage = JSON.stringify(combinedArray);
+    } else if (typeof storedArray === 'object') {
+        var combinedArray = storedArray.push(addData);
+        var backToStorage = JSON.stringify(combinedArray);
+    } else {
+        var backToStorage = JSON.stringify(forceArray(addData));
+    }
+    localStorage.setItem(storedDataName, backToStorage);
+    return console.log('Stored ' + storedDataName + ' as: ' + backToStorage)
+}
+
+
 function getTomTom() {
     fetch(tomtomApi, {
         method: 'Get',
@@ -125,11 +161,39 @@ function initMap() {
     });
 }
 
+
+
+
+function writeToPage() {
+    updateStoredArray(storedDataName, addData)
+
+}
+
+
+
+
+
 function activateUponEvent() {
     
-    var cityConvertURL = convertInputForURL(city);
-    getTomTom()
-    getTicketMaster()
+    city = $('#search-input').val();
+    cityConvertURL = encodeURIComponent(city.trim());
+
+
+// weatherAPIURL = ('https://api.openweathermap.org/data/2.5/weather?q=' + cityNameForURL + '&units=imperial&appid=' + apiKey);
+// getWeather(weatherAPIURL);
+
+
+for (var i = 8; i > 1; i--) {
+    storeArray(('city-history-' + i), $('#history' + (i - 1)).text());
+}
+storeArray('city-history-0', $('#search-input').val());
+for (var i = 0; i < 8; i++) {
+    $(('#history' + i)).text(retrieveStoredArray(('city-history-' + i)));
+}
+console.log('this thing happened');
+    // var cityConvertURL = convertInputForURL(city);
+    // getTomTom()
+    // getTicketMaster()
 }
 
 
@@ -163,53 +227,53 @@ function getLatLon(URL) {
         });
 }
 
-function devinsTempFunction() {}
+function devinsTempFunction() {
 
 // Fecth for first api (severe weather alerts) 
-fetch(weatherApi,{
-    method:'Get',
-    credentials:'same-origin',
-    redirect: 'follow'
-})
-    .then(function(response){
-        console.log(response);
-        return response.json();
-    })
-    .then(function(data){
-    console.log(data);
-    severeWeatherAlert = data.alerts['0'].event;
-    })
-// // First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
-// fetch(geocode,{
+// fetch(weatherApi,{
 //     method:'Get',
 //     credentials:'same-origin',
 //     redirect: 'follow'
 // })
 //     .then(function(response){
-//         console.log(response)
+//         console.log(response);
 //         return response.json();
 //     })
 //     .then(function(data){
-//         console.log(data)
+//     console.log(data);
+//     severeWeatherAlert = data.alerts['0'].event;
 //     })
-// fetch second api (set global variables) var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*'
-// fetch third api for map (tomtom) (possibly) https://developer.tomtom.com/products/traffic-api
-  // fetch fourth api for media (national news agency) (NewApi.org) https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=588c1b13240446baa7e3517d3a8afdaa key=588c1b13240446baa7e3517d3a8afdaa
-  function getnews(newsApi) {
-  fetch(newsApi, {
-    method:'Get',
-    credentials:'same-origin',
-    redirect: 'follow'
-})
-    .then(function(response){
-        console.log(response);
-        return response.json();
-    })
-    .then(function(data){
-    console.log(data);
-    var news = data.results['0'].title
-    console.log(news);
-    })
+// // // First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
+// // fetch(geocode,{
+// //     method:'Get',
+// //     credentials:'same-origin',
+// //     redirect: 'follow'
+// // })
+// //     .then(function(response){
+// //         console.log(response)
+// //         return response.json();
+// //     })
+// //     .then(function(data){
+// //         console.log(data)
+// //     })
+// // fetch second api (set global variables) var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*'
+// // fetch third api for map (tomtom) (possibly) https://developer.tomtom.com/products/traffic-api
+//   // fetch fourth api for media (national news agency) (NewApi.org) https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=588c1b13240446baa7e3517d3a8afdaa key=588c1b13240446baa7e3517d3a8afdaa
+//   function getnews(newsApi) {
+//   fetch(newsApi, {
+//     method:'Get',
+//     credentials:'same-origin',
+//     redirect: 'follow'
+// })
+//     .then(function(response){
+//         console.log(response);
+//         return response.json();
+//     })
+//     .then(function(data){
+//     console.log(data);
+//     var news = data.results['0'].title
+//     console.log(news);
+//     })
 // Radio station api for the bottom row (rapidApi) (possibly) = 
 }
 
@@ -229,27 +293,27 @@ function constructMain() {
     $('#main').addClass('container');
     $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly').attr('id', 'all-container'));
 
-    $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'search-history'));
+    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'search-history'));
     $('#search-history').append($('<div>').addClass('row has-text-centered').attr('id', 'history-title').text('Search History'));
     for (var i = 0; i < fetchedList; i++) {
         $('#search-history').append($('<div>').addClass('row').attr('id', 'history' + i).text('asdf'));//parsed variable for text
     }
-    $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'alerts'));
+    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'alerts'));
     $('#alerts').append($('<div>').addClass('row has-text-centered').attr('id', 'alerts-title').text('Alerts'));
     for (var i = 0; i < fetchedList; i++) {
         $('#alerts').append($('<div>').addClass('row').attr('id', 'alerts' + i).text('asdf'));//parse variable for text
     }
-    $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'live-events'));
+    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'live-events'));
     $('#live-events').append($('<div>').addClass('row has-text-centered').attr('id', 'events-title').text('Events'));
     for (var i = 0; i < fetchedList; i++) {
         $('#live-events').append($('<div>').addClass('row').attr('id', 'events' + i).text('asdf'));//parse variable for text
     }
-    $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'current-traffic'));
+    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'current-traffic'));
     $('#current-traffic').append($('<div>').addClass('row has-text-centered').attr('id', 'traffic-title').text('Traffic'));
     for (var i = 0; i < fetchedList; i++) {
         $('#current-traffic').append($('<div>').addClass('row').attr('id', 'traffic' + i).text('asdf'));//parse variable for text
     }
-    $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'media-reports'));
+    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'media-reports'));
     $('#media-reports').append($('<div>').addClass('row has-text-centered').attr('id', 'media-title').text('Media'));
     for (var i = 0; i < fetchedList; i++) {
         $('#media-reports').append($('<div>').addClass('row').attr('id', 'traffic' + i).text('asdf'));//parse variable for text
@@ -259,6 +323,8 @@ function constructMain() {
 function constructFooter() {
     $('#footer').attr('src', googleMap);
 }
+
+
 
 
 // function davidsTempFunction() {
@@ -287,14 +353,31 @@ function constructFooter() {
 //------------------------------------------------------------------------------------------------------------------
 //LISTEN AND TAKE ACTION BELOW
 getLatLon(weatherAPILatLon);
-getnews(newsApi);
+// getnews(newsApi);
 constructHeader();
 constructSearchBox();
 constructMain();
 constructFooter();
 
 
-// $('#search-button').on('click', activateUponEvent());
+$('#search-button').on('click', activateUponEvent());
+
+
+
+//now listen
+document.querySelector('button').addEventListener('click', function (event) {
+    var inputEl = event.target;
+    activateUponEvent();
+});
+
+document.querySelector('#search-input').addEventListener('keyup', function (event) {
+    var inputEl = event.key;
+    if (inputEl === "Enter") {
+        activateUponEvent();
+    }
+});
+
+
 
 
 //LISTEN AND TAKE ACTION ABOVE
