@@ -91,6 +91,11 @@ function getTomTom() {
             console.log(data);
             trafficAlerts = data.flowSegmentData.roadClosure;
         })
+        let Traffic= "";
+        for (let i=0; i<trafficAlerts.length; i++) {
+            Traffic += trafficAlerts[i];
+            console.log(traffic)
+        }
 }
 
 function getTicketMaster() {
@@ -107,6 +112,7 @@ function getTicketMaster() {
             console.log(data);
             todayEvents = data._embedded.events['0'].name
         })
+        
 }
 
 
