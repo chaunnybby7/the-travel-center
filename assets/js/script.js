@@ -180,6 +180,9 @@ fetch(weatherApi,{
     .then(function(data){
     console.log(data);
     severeWeatherAlert = data.alerts['0'].event;
+    for(var i = 0; i <data.alerts.length; i++ ){
+        console.log(data.alerts[i].event);
+        }
     })
 // // First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
 // fetch(geocode,{
