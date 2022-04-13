@@ -230,10 +230,10 @@ function constructHeader() {
 
 function constructSearchBox() {
     $('#main').append($('<div>').addClass('container is-flex is-justify-content-center').attr('id', 'search-container'));//Container
-    $('#search-container').append($('<div>').addClass('container is-flex is-justify-content-center is-4').attr('id', 'search-group'));//Container
-    $('#search-group').append($('<span>').addClass('').attr('id', 'search-title').text('Search:'));//Left orientation
-    $('#search-group').append($('<input>').addClass('').attr({ id: 'search-input', type: 'text', placeholder: 'Search for a city' }));//Input text box
-    $('#search-group').append($('<button>').addClass('').attr('id', 'search-button').text('Search'));//Search button
+    $('#search-container').append($('<div>').addClass('container is-flex is-justify-content-center').attr('id', 'search-group'));//Container
+    $('#search-group').append($('<span>').addClass('has-text-black').attr('id', 'search-title').text('Search:'));//Left orientation
+    $('#search-group').append($('<input>').addClass('is-12').attr({ id: 'search-input', type: 'text', placeholder: 'Search for a city' }));//Input text box
+    $('#search-group').append($('<button>').addClass('has-text-white').attr('id', 'search-button').text('Search'));//Search button
 }
 
 function constructMain() {
