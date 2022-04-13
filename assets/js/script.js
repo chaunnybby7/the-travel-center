@@ -1,6 +1,12 @@
 
+
+var today = dayjs().format();
+var apiKeyLatLon = '1371c97168ddd23b4146579d8cbe687b';//BL key
+var weatherAPIURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + apiKey;//Using BL Key
+var apiKeyGeoCode 
 var fetchedList = 20;
 var city;
+var cityConvertURL = encodeURIComponent(city.trim());
 var lat;
 var lon;
 // Devin's key for weather api
@@ -34,10 +40,37 @@ var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=GBXG5EP
 //---------------------------------------------------------------------------------------------------------------
 //DEFINE UTILITY FUNCTIONS BELOW
 
+function displayTime() {
+    var rightNow = dayjs().format();
+    var hourNow = dayjs().format('H');
+    var minNow = dayjs().format('m');
+    var secNow = dayjs().format('s');
+    var ampmNow = dayjs().format('a');
+    secondsLeftToday = (((24 - hourNow) * 60 * 60) - (minNow * 60) - secNow);
+    $('#currentDay').text(rightNow);
+    window.setTimeout("displayTime()", 1000);
+}
 
+function convertInputForURL(input) {
+    output = encodeURIComponent(input.trim());
+    return output;
+}
 
-
-
+// Initialize and add the map
+function initMap() {
+    // The location of Uluru
+    const uluru = { lat: -25.344, lng: 131.036 };
+    // The map, centered at Uluru
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 4,
+      center: uluru,
+    });
+    // The marker, positioned at Uluru
+    const marker = new google.maps.Marker({
+      position: uluru,
+      map: map,
+    });
+  }
 
 
 //DEFINE UTILITY FUNCTIONS ABOVE
@@ -230,6 +263,14 @@ $('main').append($('<div>').addClass('row box is-pulled-left').attr('id', 'radio
 
 
 function davidsTempFunction() {
+// $('main').append($('<div>').addClass('<form>').attr('id', 'search-form'));
+// $('search-form').append($('<input>').addClass('type').attr('id', 'search-form').text('Entern An City'));
+// $('search-form').append($('<button>').addClass('btn').attr('id', 'search-btn').text('Search'));
+ $('main').append($('<div>').addClass('<field is-grouped>').attr('id', 'searchGroup'));
+ $('searchGroup').append($('<p>').addClass('control is-expanded').attr('id', 'searchText').text('Search:'));
+ $('searchText').append($('<input>').addClass('input').attr({id: 'search', type: 'text', placeholder: 'Search for a city'}));
+$('searchGroup').append($('<p>').addClass('control'));
+ $('searchGroup').append($('<a>').addClass("button is-info").attr('id', "searchbtn").text('Search'));
 $('main').append($('<input>').addClass('input is-primary').attr({id: 'search-city', placeholder: 'Search For a city'}))
 $('main').append($('<div>').addClass('button').attr('id', 'search-btn').text("Search"));
 $('#search-btn').on('click', davidsTempFunction)
@@ -255,6 +296,7 @@ function displayNews(event){
 
 }
 
+//|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
 
@@ -262,10 +304,60 @@ function displayNews(event){
 
 function brennansTempFunction() {
 
+    function getLatLon(URL) {
+        fetch(URL, {
+            method: 'GET',
+            credentials: 'same-origin',
+            redirect: 'follow',
+        })
+            .then(function (response) {
+                console.log(response);
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                lat = data.coord.lat;
+                lon = data.coord.lon;
 
 
+
+
+
+                //PIGGY BACK FUNCTION
+                piggyBackFunctionHere(addAnInputIfNeeded);
+
+
+
+
+
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert('\n\nError:\n\nPlease check your spelling.\n\nIf this problem persists consult the console log for more information.')
+            });
+    }
+
+    //DEFINE THE PIGGY BACK CALLED WITHIN THE ABOVE RESPONSE
+    function piggyBackFunctionHere(URL) {
+        fetch(URL, {
+            method: 'GET',
+            credentials: 'same-origin',
+            redirect: 'follow',
+        })
+            .then(function (response) {
+                console.log(response);
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert('\n\nError:\n\nWe experienced an error when retrieving data\n\nPlease check your connection.')
+            });
+    }
 }
-
+//|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
 
@@ -351,66 +443,3 @@ function brennansTempFunction() {
 
 
 
-
-
-
-
-
-// TO BE ORGANIZED LATER
-
-
-
-//   // You can also chain methods onto new lines to keep code clean
-//   var totalTdEl = $('<td>').addClass('p-2').text('$' + totalEarnings);
-
-//   var deleteProjectBtn = $('<td>')
-//     .addClass('p-2 delete-project-btn text-center')
-//     .text('X');
-
-//   // By listing each `<td>` variable as an argument, each one will be appended in that order
-//   projectRowEl.append(
-//     projectNameTdEl,
-//     projectTypeTdEl,
-//     rateTdEl,
-//     dueDateTdEl,
-//     daysLeftTdEl,
-//     totalTdEl,
-//     deleteProjectBtn
-//   );
-
-//   projectDisplayEl.append(projectRowEl);
-//   //modal (hide)
-//   projectModalEl.modal('hide');
-// }
-
-// function calculateTotalEarnings(rate, days) {
-//   var dailyTotal = rate * 8;
-//   var total = dailyTotal * days;
-//   return total;
-// }
-
-// function handleDeleteProject(event) {
-//   console.log(event.target);
-//   var btnClicked = $(event.target);
-//   btnClicked.parent('tr').remove();
-// }
-
-// // handle project form submission
-// function handleProjectFormSubmit(event) {
-//   event.preventDefault();
-
-//   var projectName = projectNameInputEl.val().trim();
-//   var projectType = projectTypeInputEl.val().trim();
-//   var hourlyRate = hourlyRateInputEl.val().trim();
-//   var dueDate = dueDateInputEl.val().trim();
-
-//   printProjectData(projectName, projectType, hourlyRate, dueDate);
-
-//   projectFormEl[0].reset();
-// }
-
-// projectFormEl.on('submit', handleProjectFormSubmit);
-// projectDisplayEl.on('click', '.delete-project-btn', handleDeleteProject);
-// dueDateInputEl.datepicker({ minDate: 1 });
-
-// setInterval(displayTime, 1000);
