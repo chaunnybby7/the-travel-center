@@ -1,6 +1,12 @@
 
+
+var today = dayjs().format();
+var apiKeyLatLon = '1371c97168ddd23b4146579d8cbe687b';//BL key
+var weatherAPIURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + apiKey);//Using BL Key
+var apiKeyGeoCode = 
 var fetchedList = 20;
 var city;
+var cityConvertURL = encodeURIComponent(city.trim());
 var lat;
 var lon;
 // var for the first api
@@ -22,8 +28,21 @@ var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=GBXG5EP
 //---------------------------------------------------------------------------------------------------------------
 //DEFINE UTILITY FUNCTIONS BELOW
 
+function displayTime() {
+    var rightNow = dayjs().format();
+    var hourNow = dayjs().format('H');
+    var minNow = dayjs().format('m');
+    var secNow = dayjs().format('s');
+    var ampmNow = dayjs().format('a');
+    secondsLeftToday = (((24 - hourNow) * 60 * 60) - (minNow * 60) - secNow);
+    $('#currentDay').text(rightNow);
+    window.setTimeout("displayTime()", 1000);
+}
 
-
+function convertInputForURL(input) {
+    output = encodeURIComponent(input.trim());
+    return output;
+}
 
 
 
@@ -151,8 +170,8 @@ function davidsTempFunction() {
 // $('search-form').append($('<input>').addClass('type').attr('id', 'search-form').text('Entern An City'));
 // $('search-form').append($('<button>').addClass('btn').attr('id', 'search-btn').text('Search'));
  $('main').append($('<div>').addClass('<field is-grouped>').attr('id', 'searchGroup'));
- $('searchGroup').append($('<p>').addClass('control is-expanded').attr('id', 'searchText'));
- $('searchText').append($('<input>').addClass('input').type('text').attr('id', 'search').placeholder('Search for a city'));
+ $('searchGroup').append($('<p>').addClass('control is-expanded').attr('id', 'searchText').text('Search:'));
+ $('searchText').append($('<input>').addClass('input').attr({id: 'search', type: 'text', placeholder: 'Search for a city'}));
 $('searchGroup').append($('<p>').addClass('control'));
  $('searchGroup').append($('<a>').addClass("button is-info").attr('id', "searchbtn").text('Search'));
 
@@ -160,13 +179,60 @@ $('searchGroup').append($('<p>').addClass('control'));
 }
 
 
-
-
-
 function brennansTempFunction() {
 
+    function getLatLon(URL) {
+        fetch(URL, {
+            method: 'GET',
+            credentials: 'same-origin',
+            redirect: 'follow',
+        })
+            .then(function (response) {
+                console.log(response);
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                lat = data.coord.lat;
+                lon = data.coord.lon;
 
 
+
+
+
+                //PIGGY BACK FUNCTION
+                piggyBackFunctionHere(addAnInputIfNeeded);
+
+
+
+
+
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert('\n\nError:\n\nPlease check your spelling.\n\nIf this problem persists consult the console log for more information.')
+            });
+    }
+
+    //DEFINE THE PIGGY BACK CALLED WITHIN THE ABOVE RESPONSE
+    function piggyBackFunctionHere(URL) {
+        fetch(URL, {
+            method: 'GET',
+            credentials: 'same-origin',
+            redirect: 'follow',
+        })
+            .then(function (response) {
+                console.log(response);
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert('\n\nError:\n\nWe experienced an error when retrieving data\n\nPlease check your connection.')
+            });
+    }
 }
 
 
