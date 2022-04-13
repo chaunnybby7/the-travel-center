@@ -87,7 +87,8 @@ function getTomTom() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
+            console.log(data);
+            trafficAlerts = data.flowSegmentData.roadClosure;
         })
 }
 
@@ -164,19 +165,20 @@ function getLatLon(URL) {
 
 function devinsTempFunction() {}
 
-// Fecth for first api (natural disasters) 
-// fetch(disastersApi,{
-//     method:'Get',
-//     credentials:'same-origin',
-//     redirect: 'follow'
-// })
-//     .then(function(response){
-//         console.log(response);
-//         return response.json();
-//     })
-//     .then(function(data){
-//     console.log(data);
-//     })
+// Fecth for first api (severe weather alerts) 
+fetch(weatherApi,{
+    method:'Get',
+    credentials:'same-origin',
+    redirect: 'follow'
+})
+    .then(function(response){
+        console.log(response);
+        return response.json();
+    })
+    .then(function(data){
+    console.log(data);
+    severeWeatherAlert = data.alerts['0'].event;
+    })
 // // First call we should get latitude and longitude (any call that requires lat and long should be called within first fetch)
 // fetch(geocode,{
 //     method:'Get',
