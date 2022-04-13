@@ -2,8 +2,8 @@
 
 var today = dayjs().format();
 var apiKeyLatLon = '1371c97168ddd23b4146579d8cbe687b';//BL key
-var weatherAPIURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + apiKey);//Using BL Key
-var apiKeyGeoCode = 
+var weatherAPIURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + apiKey;//Using BL Key
+var apiKeyGeoCode 
 var fetchedList = 20;
 var city;
 var cityConvertURL = encodeURIComponent(city.trim());
@@ -188,11 +188,37 @@ function davidsTempFunction() {
  $('searchText').append($('<input>').addClass('input').attr({id: 'search', type: 'text', placeholder: 'Search for a city'}));
 $('searchGroup').append($('<p>').addClass('control'));
  $('searchGroup').append($('<a>').addClass("button is-info").attr('id', "searchbtn").text('Search'));
+$('main').append($('<input>').addClass('input is-primary').attr({id: 'search-city', placeholder: 'Search For a city'}))
+$('main').append($('<div>').addClass('button').attr('id', 'search-btn').text("Search"));
+$('#search-btn').on('click', davidsTempFunction)
+var searchCt = [];
 
+function find(c) {
+    for (var i = 0; i < searchCt.length; i++) {
+        if(c.toUpperCase() == searchCt[i]){
+            return -1;
+        }
+    }
+    return 1;
+}
+function displayNews(event){
+    event.preventDefault();
+    if($('#search-city').val().trim()!==""){
+        city=$('#search-city').val().trim();
+        currentNews(city);
+    }
+        
+    
+}
 
 }
 
 //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
+
+
+
 function brennansTempFunction() {
 
     function getLatLon(URL) {
@@ -257,7 +283,7 @@ function brennansTempFunction() {
 
 // devinsTempFunction();
 // yilinsTempFunction();
-// davidsTempFunction();
+ davidsTempFunction();
 // brennansTempFunction();
 
 
