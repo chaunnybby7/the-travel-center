@@ -8,3 +8,7 @@
     width: 100%;
     /* The width is the width of the web page */
   }
+
+.column.is-2 {
+    min-height: 400px;
+}
