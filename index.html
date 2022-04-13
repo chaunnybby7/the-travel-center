@@ -16,7 +16,8 @@
     <header>
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div id="navbarEMSResources" class="navbar-menu">
-                <div class="navbar-end">
+                <div class="navbar-start"><div id='current-day'></div>
+                    <div class="navbar-end">
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">Disaster Relief Nonprofits</a>
                         <div class="navbar-dropdown">
@@ -93,13 +94,13 @@
             style="text-align: center; font-size: xx-large; font-family: 'Krona One', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
             DISASTER COMMAND CENTER</h1>
     </header>
-    <main>
+    <main id="main">
 
     </main>
     <footer>
         <div id="map"></div>
     </footer>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&v=weekly" async></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRgqXsr0WiJVT2pK9YsH9otZQPkImwJHs&callback=initMap&v=weekly" async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
