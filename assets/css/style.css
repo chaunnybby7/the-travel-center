@@ -8,8 +8,8 @@
 
 body {
     background-image: linear-gradient(
-        lightgray 0%,
-        darkgray 100%);
+        rgb(247, 247, 247) 0%,
+        rgba(215, 211, 211, 0.683) 100%);
 }
 
 #map {
@@ -28,44 +28,90 @@ body {
 }
 
 #search-history {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: radial-gradient(
         lightgray 50%,
         gray 100%);
     color: whitesmoke;
+    border-radius: 15px;
     font-weight: bolder;
 }
 
 #alerts {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: radial-gradient(
         rgb(199, 168, 168) 50%,
         gray 100%);
+        border-radius: 15px;
         color: whitesmoke;
         font-weight: bolder;
 }
 
 #live-events {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: radial-gradient(
         rgb(148, 142, 196) 50%,
         gray 100%);
+        border-radius: 15px;
         color: whitesmoke;
         font-weight: bolder;
 }
 
 #current-traffic {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: radial-gradient(
         rgb(185, 157, 95) 50%,
         gray 100%);
+        border-radius: 15px;
         color: whitesmoke;
         font-weight: bolder;
 }
 
 #media-reports {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: radial-gradient(
         rgb(162, 115, 172) 50%,
         gray 100%);
+        border-radius: 15px;
         color: whitesmoke;
         font-weight: bolder;
 }
+
+
+.navbar {
+    background-image: linear-gradient(270deg,#144795,#183c76);
+    color: #ffffff;
+    font-weight: 600;
+}
+.navbar a {
+    color: #ffffff;
+}
+.logo {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin-left: 500px;
+    margin-top: 20px;    
+}
+header {
+    background-image: linear-gradient(270deg,#144795,#183c76);
+    color: #ffffff;
+}
+
+h1 {
+    display: inline-block;
+  
+}
+
+#search-button {
+    background-image: linear-gradient(270deg,#144795,#183c76);
+    font-weight: 600;
+}
+
+#search-title {
+    font-weight: 700;
+}
+=======
 body {
     background:url(../images/e3254ba120e6e28688b59925ca5a277a.gif) no-repeat center center fixed;
     -webkit-background-size:cover;
