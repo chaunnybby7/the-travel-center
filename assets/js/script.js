@@ -195,7 +195,16 @@ function getTomTom(URL) {
         .then(function (data) {
             console.log(data);
             trafficAlerts = data.flowSegmentData.roadClosure;
-            $(('#traffic' + 1)).text(data.flowSegmentData.roadClosure);
+            console.log(data.flowSegmentData.roadClosure)
+            if (data.flowSegmentData.roadClosure = 'false'){
+                $(('#traffic' + 1)).text("There are currently no road closures.");
+            } else {
+                $(('#traffic' + 1)).text("There are currently road closures.");
+            };
+            $(('#traffic' + 2)).text('The current speed is' + data.flowSegmentData.currentSpeed + ' mph.');
+            $(('#traffic' + 3)).text('The Free Flow Speed (Average driver speed with no traffic) is ' + data.flowSegmentData.freeFlowSpeed + ' mph.');
+
+            
         })
 }
 function getTicketMaster(URL) {
@@ -229,11 +238,11 @@ function getnews(newsApi) {
         })
         .then(function (data) {
             var news = data.results['0'].title;
-            for(var i = 0; i < fetchedList; i++){
+            for(var i = 0; i < data.results.length-1; i++){
                 console.log(data.results[i].title)
                 $(('#media' + i)).text(data.results[i].title);
             }
-           console.log('media data here')
+            
         })
     }
 

@@ -2,7 +2,7 @@
 ​
 ## Description 
 
-We designed an events center to inform users with real-time information on the weather, local events, traffic condition, severe weather conditions such as flood and earthquakes. 
+We designed an event center to inform users with real-time information on the weather, local events, traffic condition, severe weather conditions such as flood and earthquakes. 
 
 
 This app can also be used in daily lives for people who needs to commute from/to school or work. 
@@ -25,7 +25,7 @@ This app can also be used in daily lives for people who needs to commute from/to
 
 # Purpose of this WebAPI
 
-We wanted to create this WebAPI because we realized that we tend to overlook the natural disasters or severe weather conditions in our daily lives.
+We wanted to create this WebAPI because we realized that we tend to overlook natural disasters or severe weather conditions in our daily lives.
 These are often unpredictable and we will always be vulnerable if we do not pay attention to severe weather conditions and the damages it could cause.
 
 With an app like this, we will be proactive and evacuate immediately and strategically. This can reduce the level of tension in crowds.
@@ -48,20 +48,35 @@ That said, media would help users stay in the loop on the affected zones.
 
 - We used `fetch()` method to fetch resources asynchrounously from the network. 
 
+For example, the main `<div>` section:
+
 ```
-![img](assets/images/fetchTom.png)
+function constructMain() {
+    $('#main').addClass('container');
+    $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly').attr('id', 'all-container'));
+
+    $('#all-container').append($('<div>').addClass('column is-2').attr('id', 'search-history'));
+    $('#search-history').append($('<div>').addClass('row has-text-centered').attr('id', 'history-title').text('Search History'));
+    for (var i = 0; i < fetchedList; i++) {
+        $('#search-history').append($('<div>').addClass('row').attr('id', 'history' + i).text('asdf'));//parsed variable for text
+    }
+
 ```
 
+
+
 - We used Bulma, Jquery and style.css for the CSS framework.
+
 
 ​
 ## Installation
 ​
 No installations or downloads are required. 
 
+
 # Deployed Link (Github)
 
-​* https://kuyadevin.github.io/the-events-center/
+​* https://kuyadevin.github.io/the-event-center/
 
 * https://github.com/kuyadevin/the-event-center
 
@@ -96,7 +111,7 @@ No installations or downloads are required.
 
 ​
 ```
-![img](assets/images/screenshot.png)
+![img](assets/images/.png)
 
 ![gif]()
 ```
@@ -112,7 +127,7 @@ No installations or downloads are required.
 
 ## Badges
 
-(https://img.shields.io/github/languages/top/kuyadevin/ems-command-center)
+(https://img.shields.io/github/languages/top/kuyadevin/the-event-center)
 
 
 ​
