@@ -7,31 +7,28 @@ var city = 'San Diego';
 var cityConvertURL = convertInputForURL(city);
 var lat;
 var lon;
+var googleMapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d214577.5118345444!2d-117.24940248979505!3d32.82476262987511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d9530fad921e4b%3A0xd3a21fdfd15df79!2s' + cityConvertURL + '%2C%20CA!5e0!3m2!1sen!2sus!4v1649916836140!5m2!1sen!2sus' 
+ 
 
+//Set API info as global
 var googleAPIKey = 'AIzaSyBRgqXsr0WiJVT2pK9YsH9otZQPkImwJHs';
 var googleMap;//Defined in the lead fetch function (requires lat & lon)
-
 var weatherKey='a7e97ca14eb00aee24f5e5ef8502534a';//Devin
 var weatherAPILatLon = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + weatherKey;//Devin
 var weatherApi;//Defined in the lead fetch function (requires lat & lon)
-
 var geocodeKey = 'a7e97ca14eb00aee24f5e5ef8502534a';//Devin
 var geocode ='http://api.openweathermap.org/geo/1.0/direct?q=' + cityConvertURL + '&limit=5&appid=' + geocodeKey;
-
 var ticketmasterKey='HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM';
 var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketmasterKey + '&locale=*&startDateTime=' + today + '&endDateTime=' + nextWeek + '&city=' + cityConvertURL;
-
 var tomtomKey='9SVo7CMwOXDtJdDxTNsfWfWgimsIrLTU';//Devin
 var tomtomApi;//Defined in the lead fetch function (requires lat & lon)
-
 var newsKey='GBXG5EPQF9rQORZISKtLpJ7DKJO9ylEm';//Devin
 var newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=' + newsKey;
 
 
-// // fetch second api (set global variables) var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*'
-// // fetch third api for map (tomtom) (possibly) https://developer.tomtom.com/products/traffic-api
-//   // fetch fourth api for media (national news agency) (NewApi.org) https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=588c1b13240446baa7e3517d3a8afdaa 
-// 2022-04-11T23:59:00Z
+// https://app.ticketmaster.com/discovery/v2/events?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&locale=*
+// https://developer.tomtom.com/products/traffic-api
+// https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=588c1b13240446baa7e3517d3a8afdaa 
 
 var severeWeatherAlert;
 var floodWarning;
@@ -46,7 +43,7 @@ var mediaEvents;
 //DEFINE UTILITY FUNCTIONS BELOW
 
 function displayTime() {
-    var rightNow = dayjs().format();
+    var rightNow = dayjs().format('YYYY-MM-DD HH:mm:ss');
     var hourNow = dayjs().format('H');
     var minNow = dayjs().format('m');
     var secNow = dayjs().format('s');
@@ -94,22 +91,31 @@ function updateStoredArray(storedDataName, addData) {
     return console.log('Stored ' + storedDataName + ' as: ' + backToStorage)
 }
 
+function locationChangeOnApis() {
+    weatherAPILatLon = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + weatherKey;//Devin
+    geocode = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityConvertURL + '&limit=5&appid=' + geocodeKey;
+    ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketmasterKey + '&locale=*&startDateTime=' + today + '&endDateTime=' + nextWeek + '&city=' + cityConvertURL;
+    newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=' + newsKey;
+}
+
+
 function activateUponEvent() {
     city = $('#search-input').val();
     cityConvertURL = encodeURIComponent(city.trim());
-// weatherAPIURL = ('https://api.openweathermap.org/data/2.5/weather?q=' + cityNameForURL + '&units=imperial&appid=' + apiKey);
-// getWeather(weatherAPIURL);
-for (var i = fetchedList; i > 0; i--) {
-    storeArray(('city-history-' + i), $('#history' + (i - 1)).text());
-}
-storeArray('city-history-0', $('#search-input').val());
-for (var i = 0; i < fetchedList; i++) {
-    $(('#history' + i)).text(retrieveStoredArray(('city-history-' + i)));
-}
-console.log('Event activated');
-    // var cityConvertURL = convertInputForURL(city);
-    // getTomTom()
-    // getTicketMaster()
+    locationChangeOnApis();
+    getLatLon(weatherAPILatLon);
+    getTicketMaster(ticketmasterApi);
+    // getnews(newsApi);
+    for (var i = fetchedList; i > 0; i--) {
+        storeArray(('city-history-' + i), $('#history' + (i - 1)).text());
+    }
+    storeArray('city-history-0', $('#search-input').val());
+    for (var i = 0; i < fetchedList; i++) {
+        $(('#history' + i)).text(retrieveStoredArray(('city-history-' + i)));
+    }
+    console.log('Event activated');
+    $('iframe').attr({ src: googleMapSrc, width: '1024', height: '760', style: 'border:0;', allowfullscreen: '', loading: 'lazy', referrerpolicy: 'no-referrer-when-downgrade' });
+
 }
 
 
@@ -219,7 +225,8 @@ function getnews(newsApi) {
 
 
 function constructHeader() {
-    $('#main').append($('<div>').addClass('row').attr('id', 'radio-stream'));
+    $('#header').append($('<div>').addClass('row').attr('id', 'current-day'));
+    $('#header').append($('<div>').addClass('row').attr('id', 'radio-stream'));
 }
 
 function constructSearchBox() {
@@ -232,43 +239,43 @@ function constructSearchBox() {
 
 function constructMain() {
     $('#main').addClass('container');
-    $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly').attr('id', 'all-container'));
+    $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly is-gapless is-1 is-Mobile').attr('id', 'all-container'));
 
-    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'search-history'));
-    $('#search-history').append($('<div>').addClass('row has-text-centered').attr('id', 'history-title').text('Search History'));
-    for (var i = 0; i < fetchedList; i++) {
-        $('#search-history').append($('<div>').addClass('row').attr('id', 'history' + i).text(' '));//parsed variable for text
-    }
-    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'alerts'));
+    $('#all-container').append($('<div>').addClass('column box').attr('id', 'alerts'));
     $('#alerts').append($('<div>').addClass('row has-text-centered').attr('id', 'alerts-title').text('Alerts'));
     for (var i = 0; i < fetchedList; i++) {
         $('#alerts').append($('<div>').addClass('row').attr('id', 'alerts' + i).text(' '));//parse variable for text
     }
-    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'live-events'));
+    $('#all-container').append($('<div>').addClass('column box').attr('id', 'live-events'));
     $('#live-events').append($('<div>').addClass('row has-text-centered').attr('id', 'events-title').text('Events'));
     for (var i = 0; i < fetchedList; i++) {
         $('#live-events').append($('<div>').addClass('row').attr('id', 'events' + i).text(' '));//parse variable for text
     }
-    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'current-traffic'));
+    $('#all-container').append($('<div>').addClass('column box').attr('id', 'current-traffic'));
     $('#current-traffic').append($('<div>').addClass('row has-text-centered').attr('id', 'traffic-title').text('Traffic'));
     for (var i = 0; i < fetchedList; i++) {
         $('#current-traffic').append($('<div>').addClass('row').attr('id', 'traffic' + i).text(' '));//parse variable for text
     }
-    $('#all-container').append($('<div>').addClass('column box is-2').attr('id', 'media-reports'));
+    $('#all-container').append($('<div>').addClass('column box').attr('id', 'media-reports'));
     $('#media-reports').append($('<div>').addClass('row has-text-centered').attr('id', 'media-title').text('Media'));
     for (var i = 0; i < fetchedList; i++) {
         $('#media-reports').append($('<div>').addClass('row').attr('id', 'traffic' + i).text(' '));//parse variable for text
     }
+    $('#all-container').append($('<div>').addClass('column box').attr('id', 'search-history'));
+    $('#search-history').append($('<div>').addClass('row has-text-centered').attr('id', 'history-title').text('Search History'));
+    for (var i = 0; i < fetchedList; i++) {
+        $('#search-history').append($('<div>').addClass('row').attr('id', 'history' + i).text(' '));//parsed variable for text
+    }
 }
 
 function constructFooter() {
-    $('#footer').attr('src', googleMap);
+    $('#footer').addClass('container is-flex is-justify-content-center').append($('<iframe>').attr({src: googleMapSrc, width: '1024', height: '760' , style: 'border:0;', allowfullscreen: '', loading: 'lazy', referrerpolicy: 'no-referrer-when-downgrade'}));
 }
-
 
 //DEFINE THE PRIMARY FUNCTION ABOVE
 //------------------------------------------------------------------------------------------------------------------
 //LISTEN AND TAKE ACTION BELOW
+displayTime();
 constructHeader();
 constructSearchBox();
 constructMain();
