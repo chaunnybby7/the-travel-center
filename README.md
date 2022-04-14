@@ -127,7 +127,7 @@ No installations or downloads are required.
 
 ## Badges
 
-(https://img.shields.io/github/languages/top/kuyadevin/the-event-center)
+![Top Language](https://img.shields.io/github/languages/top/kuyadevin/the-event-center)
 
 
 ​
