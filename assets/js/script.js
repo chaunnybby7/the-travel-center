@@ -1,7 +1,7 @@
 
 
-var today = dayjs().format();
-var nextWeek = dayjs().add(7, 'day').format();
+var today = dayjs().format('[YYYYescape] YYYY-MM-DDTHH:mm:ss[Z]');
+var nextWeek = today.add(dayjs.duration({'days' : 7}));
 var fetchedList = 20;
 var city = 'San Diego';
 var cityConvertURL = convertInputForURL(city);
