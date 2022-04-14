@@ -3,21 +3,57 @@
 }
 
 * {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
 body {
+
     background-image: linear-gradient(
         rgb(247, 247, 247) 0%,
         rgba(215, 211, 211, 0.683) 100%);
+    background: URL(../images/clouds.gif);
+    background-repeat:  no-repeat; 
+    background-size: cover;
 }
 
-#map {
-    height: 400px;
-    /* The height is 400 pixels */
-    width: 100%;
-    /* The width is the width of the web page */
-  }
+
+header {
+    background-image: linear-gradient(270deg,#144795,#183c76);
+    color: #ffffff;
+}
+.navbar {
+    background-image: linear-gradient(270deg,#144795,#183c76);
+    color: #ffffff;
+    font-weight: 600;
+}
+.navbar a {
+    color: #ffffff;
+}
+.logo {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin-left: 500px;
+    margin-top: 20px;    
+}
+
+h1 {
+    display: inline-block;
+  
+}
+
+#search-button {
+    background-image: linear-gradient(270deg,#144795,#183c76);
+    font-weight: 600;
+}
+
+#search-title {
+    font-weight: 700;
+}
+
+#search-button {
+    border-radius: 10px;
+}
 
 .column.is-2 {
     min-height: 400px;
@@ -67,6 +103,13 @@ body {
         font-weight: bolder;
 }
 
+#map {
+    height: 400px;
+    /* The height is 400 pixels */
+    width: 100%;
+    /* The width is the width of the web page */
+  }
+
 #media-reports {
     font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: radial-gradient(
@@ -78,48 +121,4 @@ body {
 }
 
 
-.navbar {
-    background-image: linear-gradient(270deg,#144795,#183c76);
-    color: #ffffff;
-    font-weight: 600;
-}
-.navbar a {
-    color: #ffffff;
-}
-.logo {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    margin-left: 500px;
-    margin-top: 20px;    
-}
-header {
-    background-image: linear-gradient(270deg,#144795,#183c76);
-    color: #ffffff;
-}
 
-h1 {
-    display: inline-block;
-  
-}
-
-#search-button {
-    background-image: linear-gradient(270deg,#144795,#183c76);
-    font-weight: 600;
-}
-
-#search-title {
-    font-weight: 700;
-}
-=======
-body {
-    background:url(../images/e3254ba120e6e28688b59925ca5a277a.gif) no-repeat center center fixed;
-    -webkit-background-size:cover;
-    -moz-background-size:cover;
-    -o-background-size:cover;
-    background-size:cover;
-}
-
-#search-button {
-    border-radius: 10px;
-}
