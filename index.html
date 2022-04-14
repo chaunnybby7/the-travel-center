@@ -10,98 +10,49 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
-    <title>Command Center</title>
+    <title>Event Center</title>
 </head>
 <body>
     <header>
-       
-        <nav class="navbar is-pulled-right" role="navigation" aria-label="main navigation">
+        <nav class="navbar is-justify-content-space-between" role="navigation" aria-label="main navigation">
             <div id="navbarEMSResources" class="navbar-menu">
-                <div class="navbar-start"><div id='current-day'></div>
-                    <div class="navbar-end">
+                <div class="navbar-start">
+                    <div id='current-day'></div>
+                </div>
+                <div class="navbar-end">
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">Disaster Relief Nonprofits</a>
+                        <a class="navbar-link">Resources</a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item" target="_blank"
-                                href="https://www.redcross.org/about-us/our-work/international-services/international-disasters-and-crises.html"><img
-                                    src="https://www.redcross.org/content/dam/redcross/imported-images/redcross-logo.png.img.png"
+                            <a class="navbar-item" target="_blank" href="https://www.yelp.com/"><img
+                                    style="background-color: red;"
+                                    src="https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_design_cdn/2d2a7a4342fc/assets/img/brand/logo_desktop_white.svg"
                                     width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank" href="https://www.allhandsandhearts.org/about-us/"><img
-                                    src="https://www.allhandsandhearts.org/wp-content/uploads/2018/06/All-Hands-and-Hearts-Peru-Flood-Recovery-NGO-Non-Profit-Charity-Volunteer-Free-Petra-Nemcova-David-Campbell-1.jpg"
-                                    width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank" href="https://www.doctorswithoutborders.org/"><img
-                                    src="https://www.doctorswithoutborders.org/themes/custom/msf/logo.svg" width="112"
+                            <a class="navbar-item" target="_blank" href="https://www.expedia.com/"><img
+                                    src="https://www.expedia.com/_dms/header/logo.svg" width="112" height="28"></a>
+                            <a class="navbar-item" target="_blank" href="https://www.opentable.com/"><img
+                                    src="https://cdn.otstatic.com/cfe/8/images/opentable-logo-153e80.svg" width="112"
                                     height="28"></a>
-                            <a class="navbar-item" target="_blank"
-                                href="https://www.samaritanspurse.org/what-we-do/crisis-and-disaster-response/"><img
-                                    src="https://sp-comm-arkfiles.s3.theark.cloud/website/global/sp-white-logo.png"
+                            <a class="navbar-item" target="_blank" href="https://foursquare.com/"><img
+                                    src="https://foursquare.com/img/developers/developer-auth/logo-foursquare.png"
                                     width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank"
-                                href="https://www.directrelief.org/fundamentals-emergency-response/"><img
-                                    src="https://i2.wp.com/www.directrelief.org/wp-content/uploads/DIRECT_RELIEF_EBO_SHIP-77-e1606775844745.jpg"
-                                    width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank" href="https://mcc.org/learn/what/relief"><img
-                                    src="https://mcc.org/sites/mcc.org/files/media/common/images/logos/mcc_logo.png"
-                                    width="112" height="28"></a>
-                            <a class="navbar-item" href="https://www.reactintl.org/"><img
-                                    src="https://reactteams.org/images/logo.png" width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank"
-                                href="https://www.americares.org/what-we-do/emergency-programs/"><img
-                                    src="https://www.americares.org/wp-content/uploads/logo-color-2.png" width="112"
-                                    height="28"></a>
-                            <a class="navbar-item" target="_blank"
-                                href="https://www.irteams.org/programs/disaster-response"><img
-                                    style="background-color: black;"
-                                    src="https://global-uploads.webflow.com/58bede11383ef761786b3dc6/591a1ee765a16426161629a9_IRT_Logo.png"
-                                    width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank" href="https://www.shelterbox.org/about/"><img
-                                    src="https://www.shelterbox.org/wp-content/uploads/2020/06/svg_logo3.png" width="112"
-                                    height="28"></a>
-                        </div>
-                    </div>
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">Emergency Preparedness</a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" target="_blank" href="https://www.emergency.cdc.gov/"><img
-                                    src="https://www.cdc.gov/cdc-info/images/cdcinfo_masthead_523px.jpg" width="112"
-                                    height="28"></a>
-                            <a class="navbar-item" target="_blank"
-                                href="https://www.nsc.org/home-safety/safety-topics/emergency-preparedness"><img
-                                    src="https://nsccdn.azureedge.net/nsc.org/media/site-media/logo/nsc-menu.png"
-                                    width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank" href="https://www.ncbi.nlm.nih.gov/books/NBK537042/"><img
-                                    src="https://www.ncbi.nlm.nih.gov/corehtml/pmc/pmcgifs/bookshelf/thumbs/th-statpearls-lrg.png"
-                                    width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank" href="https://www.ready.gov/"><img
-                                    src="https://www.ready.gov/profiles/readyd8_gov/themes/uswds_ready/img/logo_ready_green.png"
-                                    width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank"
-                                href="https://www.safeopedia.com/definition/194/emergency-preparedness"><img
-                                    src="https://www.safeopedia.com/resource/images/logo.svg" width="112" height="28"></a>
-                            <a class="navbar-item" target="_blank"
-                                href="https://theprepared.com/prepping-basics/guides/emergency-preparedness-checklist-prepping-beginners/"><img
-                                    src="https://theprepared.com/wp-content/uploads/2017/07/Prepping-101.png" width="112"
-                                    height="28"></a>
-                            <a class="navbar-item" target="_blank"
-                                href="https://www.thereadystore.com/emergency-preparedness-supplies"><img
-                                    src="https://www.thereadystore.com/pub/media/logo/stores/1/readystore_1.png" width="112"
-                                    height="28"></a>
+                            <a class="navbar-item" target="_blank" href="https://www.bbb.org/"><img
+                                    src="https://duckduckgo.com/i/c1ebe1a8.png" width="28" height="28"></a>
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
-        
-       
-        <h1
-            style="text-align: center; font-size: xx-large; font-family: 'Krona One', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-            <img class="logo" src="./assets/images/logo1.png">COMMAND CENTER</h1>
+        <div class="is-flex is-justify-content-center is-align-items-center">
+            <img class="logo" src="./assets/images/logo1.png" width="112" height="28">
+            <h1
+                style="text-align: center; font-size: xx-large; font-family: 'Krona One', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                EVENT CENTER</h1>
+        </div>
     </header>
     <main id="main">
 
     </main>
     <footer id="footer">
-        <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
     </footer>
 
 
