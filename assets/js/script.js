@@ -8,7 +8,11 @@ var cityConvertURL = convertInputForURL(city);
 var lat;
 var lon;
 var googleMapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d214577.5118345444!2d-117.24940248979505!3d32.82476262987511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d9530fad921e4b%3A0xd3a21fdfd15df79!2s' + cityConvertURL + '%2C%20CA!5e0!3m2!1sen!2sus!4v1649916836140!5m2!1sen!2sus' 
- 
+var map;
+var center;
+var zoom;
+var lat;
+var lon;
 
 //Set API info as global
 var googleAPIKey = 'AIzaSyBRgqXsr0WiJVT2pK9YsH9otZQPkImwJHs';
@@ -98,14 +102,13 @@ function locationChangeOnApis() {
     newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=' + newsKey;
 }
 
-
 function activateUponEvent() {
     city = $('#search-input').val();
     cityConvertURL = encodeURIComponent(city.trim());
     locationChangeOnApis();
     getLatLon(weatherAPILatLon);
     getTicketMaster(ticketmasterApi);
-    // getnews(newsApi);
+    getnews(newsApi);
     for (var i = fetchedList; i > 0; i--) {
         storeArray(('city-history-' + i), $('#history' + (i - 1)).text());
     }
@@ -115,8 +118,14 @@ function activateUponEvent() {
     }
     console.log('Event activated');
     $('iframe').attr({ src: googleMapSrc, width: '1024', height: '760', style: 'border:0;', allowfullscreen: '', loading: 'lazy', referrerpolicy: 'no-referrer-when-downgrade' });
-
 }
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: lat , lng: lon },
+        zoom: 14,
+      });
+    }
 
 
 //DEFINE UTILITY FUNCTIONS ABOVE
@@ -148,7 +157,8 @@ function getLatLon(URL) {
             console.log('gettingWeather');
             getWeather(weatherApi);
             googleMap = 'https://www.google.com/maps/embed/v1/view?key=' + googleAPIKey + '&center=' + lat + ',' + lon + '&zoom=18&maptype=satellite';
-
+            initMap();
+            window.initMap = initMap;
         })
         .catch(function (error) {
             console.log(error);
@@ -167,7 +177,7 @@ function getWeather(URL) {
         })
         .then(function (data) {
             console.log(data);
-           console.log('This data here')
+            $(('#weather' + 1)).text(re);
         })
 }
 function getTomTom(URL) {
@@ -219,12 +229,13 @@ function getnews(newsApi) {
         })
         .then(function (data) {
             var news = data.results['0'].title;
-            for(var i = 0; i < data.results.length; i++){
+            for(var i = 0; i < fetchedList; i++){
                 console.log(data.results[i].title)
+                $(('#media' + i)).text(data.results[i].title);
             }
-            $(('#media' + i)).text(data.results[i].title);
+           console.log('media data here')
         })
-}
+    }
 
 
 function constructHeader() {
@@ -241,7 +252,7 @@ function constructSearchBox() {
 }
 
 function constructMain() {
-    $('#main').addClass('container');
+    $('#main').addClass('container-fluid is-widescreen');
     $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly is-gapless is-1 is-Mobile').attr('id', 'all-container'));
 
     $('#all-container').append($('<div>').addClass('column box').attr('id', 'alerts'));
@@ -262,7 +273,7 @@ function constructMain() {
     $('#all-container').append($('<div>').addClass('column box').attr('id', 'media-reports'));
     $('#media-reports').append($('<div>').addClass('row has-text-centered').attr('id', 'media-title').text('Media'));
     for (var i = 0; i < fetchedList; i++) {
-        $('#media-reports').append($('<div>').addClass('row').attr('id', 'traffic' + i).text(' '));//parse variable for text
+        $('#media-reports').append($('<div>').addClass('row').attr('id', 'media' + i).text(' '));//parse variable for text
     }
     $('#all-container').append($('<div>').addClass('column box').attr('id', 'search-history'));
     $('#search-history').append($('<div>').addClass('row has-text-centered').attr('id', 'history-title').text('Search History'));
@@ -272,9 +283,11 @@ function constructMain() {
 }
 
 function constructFooter() {
-    $('#footer').addClass('container is-flex is-justify-content-center').append($('<iframe>').attr({src: googleMapSrc, width: '1024', height: '760' , style: 'border:0;', allowfullscreen: '', loading: 'lazy', referrerpolicy: 'no-referrer-when-downgrade'}));
+    $('#footer').addClass('is-flex is-justify-content-center').append($('<div>').attr('id', 'map'));
 }
-let googlemap;
+
+
+
 
 //DEFINE THE PRIMARY FUNCTION ABOVE
 //------------------------------------------------------------------------------------------------------------------

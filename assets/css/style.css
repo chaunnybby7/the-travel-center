@@ -3,7 +3,7 @@
 }
 
 * {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
 body {
@@ -15,6 +15,9 @@ body {
     background-size: cover;
 }
 
+.main {
+    width: 3000px;
+}
 
 header {
     background-image: linear-gradient(270deg,#144795,#183c76);
