@@ -1,7 +1,7 @@
 
 
-var today = dayjs().format('[YYYYescape] YYYY-MM-DDTHH:mm:ss[Z]');
-var nextWeek = today.add(dayjs.duration({'days' : 7}));
+var today = dayjs().format('YYYY-MM-DDTHH:mm:ss[Z]')
+var nextWeek = dayjs().add(7, 'day').format('YYYY-MM-DDTHH:mm:ss[Z]')
 var fetchedList = 20;
 var city = 'San Diego';
 var cityConvertURL = convertInputForURL(city);
@@ -19,7 +19,7 @@ var geocodeKey = 'a7e97ca14eb00aee24f5e5ef8502534a';//Devin
 var geocode ='http://api.openweathermap.org/geo/1.0/direct?q=' + cityConvertURL + '&limit=5&appid=' + geocodeKey;
 
 var ticketmasterKey='HFGYWE0osHys0ANa0ezvm1g9uNqmWxpM';
-var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketmasterKey + '&locale=*&startDateTime=' + today + 'Z&endDateTime=' + nextWeek + 'Z&city=' + cityConvertURL;
+var ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketmasterKey + '&locale=*&startDateTime=' + today + '&endDateTime=' + nextWeek + '&city=' + cityConvertURL;
 
 var tomtomKey='9SVo7CMwOXDtJdDxTNsfWfWgimsIrLTU';//Devin
 var tomtomApi;//Defined in the lead fetch function (requires lat & lon)
@@ -129,11 +129,18 @@ function getLatLon(URL) {
         })
         .then(function (data) {
             console.log(data);
+            // severeWeatherAlert = data.alerts['0'].event;
+            // for (var i = 0; i < data.alerts.length; i++) {
+            //     console.log(data.alerts[i.toString()].event);
+            //     $(('#alerts' + i)).text(data.alerts[i].event);
+            // }
             lat = data.coord.lat;
             lon = data.coord.lon;
-            // weatherApi = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=' + weatherKey;
-            tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '&' + lon + '&unit=MPH&openLr=false&key=' + tomtomKey;
-            // getTomTom(tomtomApi);
+            weatherApi = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={part}&appid=' + weatherKey;
+            tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '%2C' + lon + '&unit=MPH&openLr=false&key=' + tomtomKey;
+            getTomTom(tomtomApi);
+            console.log('gettingWeather');
+            getWeather(weatherApi);
             googleMap = 'https://www.google.com/maps/embed/v1/view?key=' + googleAPIKey + '&center=' + lat + ',' + lon + '&zoom=18&maptype=satellite';
 
         })
@@ -154,11 +161,7 @@ function getWeather(URL) {
         })
         .then(function (data) {
             console.log(data);
-            severeWeatherAlert = data.alerts['0'].event;
-            for (var i = 0; i < data.alerts.length; i++) {
-                console.log(data.alerts[i].event);
-                $(('#alerts' + i)).text(data.alerts[i].event);
-            }
+           console.log('This data here')
         })
 }
 function getTomTom(URL) {
@@ -270,9 +273,8 @@ constructHeader();
 constructSearchBox();
 constructMain();
 constructFooter();
-// getLatLon(weatherAPILatLon);
-// getWeather(weatherApi);
-// getTicketMaster(ticketmasterApi);
+getLatLon(weatherAPILatLon);
+getTicketMaster(ticketmasterApi);
 // getnews(newsApi);
 
 
