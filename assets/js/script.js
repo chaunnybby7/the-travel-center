@@ -212,8 +212,11 @@ function getnews(newsApi) {
             return response.json();
         })
         .then(function (data) {
-            var news = data.results['0'].title
-            $(('#media' + i)).text();
+            var news = data.results['0'].title;
+            for(var i = 0; i < data.results.length; i++){
+                console.log(data.results[i].title)
+            }
+            $(('#media' + i)).text(data.results[i].title);
         })
 }
 
