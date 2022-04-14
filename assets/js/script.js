@@ -267,7 +267,16 @@ function constructMain() {
 function constructFooter() {
     $('#footer').attr('src', googleMap);
 }
+let googlemap;
 
+function initMap() {
+  googlemap = new google.maps.Map(document.getElementById("map"), {
+    center: { lat:32.7157 , lng:-117.1611 },
+    zoom: 14,
+  });
+}
+
+window.initMap = initMap;
 
 //DEFINE THE PRIMARY FUNCTION ABOVE
 //------------------------------------------------------------------------------------------------------------------
@@ -278,7 +287,7 @@ constructMain();
 constructFooter();
 getLatLon(weatherAPILatLon);
 getTicketMaster(ticketmasterApi);
-// getnews(newsApi);
+getnews(newsApi);
 
 
 //now listen
