@@ -218,8 +218,11 @@ function getnews(newsApi) {
             return response.json();
         })
         .then(function (data) {
-            var news = data.results['0'].title
-            $(('#media' + i)).text();
+            var news = data.results['0'].title;
+            for(var i = 0; i < data.results.length; i++){
+                console.log(data.results[i].title)
+            }
+            $(('#media' + i)).text(data.results[i].title);
         })
 }
 
@@ -271,6 +274,7 @@ function constructMain() {
 function constructFooter() {
     $('#footer').addClass('container is-flex is-justify-content-center').append($('<iframe>').attr({src: googleMapSrc, width: '1024', height: '760' , style: 'border:0;', allowfullscreen: '', loading: 'lazy', referrerpolicy: 'no-referrer-when-downgrade'}));
 }
+let googlemap;
 
 //DEFINE THE PRIMARY FUNCTION ABOVE
 //------------------------------------------------------------------------------------------------------------------
@@ -282,7 +286,7 @@ constructMain();
 constructFooter();
 getLatLon(weatherAPILatLon);
 getTicketMaster(ticketmasterApi);
-// getnews(newsApi);
+getnews(newsApi);
 
 
 //now listen
