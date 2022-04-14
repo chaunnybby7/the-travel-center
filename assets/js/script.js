@@ -108,7 +108,7 @@ function getTicketMaster() {
             todayEvents = data._embedded.events['0'].name;
             for (i = 0; i < data._embedded.events.length; i++){
                 console.log(data._embedded.events[i].name)
-            }            
+            }1            
         })
 }
 
@@ -215,8 +215,10 @@ fetch(weatherApi,{
     })
     .then(function(data){
     console.log(data);
-    var news = data.results['0'].title
-    console.log(news);
+    var news = data.results['0'].title;
+    for(i < 0; i < data.results.length; i++){
+        console.log(data.results[i].title)
+    }
     })
 // Radio station api for the bottom row (rapidApi) (possibly) = 
 }
