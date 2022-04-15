@@ -76,9 +76,9 @@ No installations or downloads are required.
 
 # Deployed Link (Github)
 
-​* https://kuyadevin.github.io/the-event-center/
+​* https://kuyadevin.github.io/the-trave-center/
 
-* https://github.com/kuyadevin/the-event-center
+* https://github.com/kuyadevin/the-travel-center
 
 ​
 ## Functionality 
@@ -127,7 +127,7 @@ No installations or downloads are required.
 
 ## Badges
 
-![Top Language](https://img.shields.io/github/languages/top/kuyadevin/the-event-center)
+![Top Language](https://img.shields.io/github/languages/top/kuyadevin/the-travel-center)
 
 
 ​
