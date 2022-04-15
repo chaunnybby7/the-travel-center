@@ -81,19 +81,16 @@ function activateUponEvent() {
     cityConvertURL = encodeURIComponent(city.trim());
     locationChangeOnApis();
     getLatLon(weatherAPILatLon);
-    console.log('TicketMaster API fetch below');
     getTicketMaster(ticketmasterApi);
-    console.log('TicketMaster API fetch above');
-    console.log('News API fetch below');
     getnews(newsApi);
-    console.log('News API fetch above');
     for (var i = fetchedListLimit; i > 0; i--) {
         storeArray(('city-history-' + i), $('#history' + (i - 1)).text());
     }
     storeArray('city-history-0', $('#search-input').val());
     for (var i = 0; i < fetchedListLimit; i++) {
-        $(('#history' + i)).text(retrieveStoredArray(('city-history-' + i)));
+        $('#history' + i).text(retrieveStoredArray('city-history-' + i));
     }
+    $('#search-input').val('');
     console.log('Event activated');
 }
 
@@ -172,7 +169,6 @@ function getWeather(URL) {
         });
 }
 function getTomTom(URL) {
-    console.log(tomtomApi);
     fetch(URL, {
         method: 'Get',
         credentials: 'same-origin',
@@ -314,6 +310,11 @@ getLatLon(weatherAPILatLon);
 getTicketMaster(ticketmasterApi);
 getnews(newsApi);
 
+
+for (var i = 0; i < fetchedListLimit; i++) {
+    $(('#history' + i)).text(retrieveStoredArray(('city-history-' + i)));
+}
+console.log('Event activated');
 
 
 //now listen
