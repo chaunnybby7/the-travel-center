@@ -275,7 +275,7 @@ function constructSearchBox() {
 
 function constructMain() {
     $('#main').addClass('container-fluid');
-    $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly is-gapless ').attr('id', 'all-container'));
+    $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly is-gapless').attr('id', 'all-container'));
 
     $('#all-container').append($('<div>').addClass('column box').attr('id', 'weather'));
     $('#weather').append($('<div>').addClass('row has-text-centered').attr('id', 'weather-title').text('Weather'));
