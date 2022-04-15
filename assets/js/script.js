@@ -4,7 +4,7 @@ var today = dayjs().format('YYYY-MM-DDTHH:mm:ss[Z]');
 var todayDate = dayjs().format('YYYY-MM-DD');
 var nextWeek = dayjs().add(7, 'day').format('YYYY-MM-DDTHH:mm:ss[Z]');
 var unixDate;
-var fetchedList = 20;
+var fetchedListLimit = 15;
 var city = 'San Diego';
 var cityConvertURL = convertInputForURL(city);
 var lat;
@@ -70,27 +70,8 @@ function storeArray(assignName, data) {
     return console.log('Stored ' + assignName + ' as: ' + sendToStorage)
 }
 
-//Update storage
-function updateStoredArray(storedDataName, addData) {
-    const forceArray = (v) => [].concat(v).map(name => name);
-    var storedArray = JSON.parse(localStorage.getItem(storedDataName));
-    if (typeof storedArray === 'string' && storedArray.length > 0) {
-        storedArray = forceArray(JSON.parse(localStorage.getItem(storedDataName)));
-        var combinedArray = storedArray.push(addData);
-        var backToStorage = JSON.stringify(combinedArray);
-    } else if (typeof storedArray === 'object') {
-        var combinedArray = storedArray.push(addData);
-        var backToStorage = JSON.stringify(combinedArray);
-    } else {
-        var backToStorage = JSON.stringify(forceArray(addData));
-    }
-    localStorage.setItem(storedDataName, backToStorage);
-    return console.log('Stored ' + storedDataName + ' as: ' + backToStorage)
-}
-
 function locationChangeOnApis() {
     weatherAPILatLon = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityConvertURL + '&units=imperial&appid=' + weatherKey;//Devin
-    geocode = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityConvertURL + '&limit=5&appid=' + geocodeKey;
     ticketmasterApi = 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + ticketmasterKey + '&locale=*&startDateTime=' + today + '&endDateTime=' + nextWeek + '&city=' + cityConvertURL;
     newsApi = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=' + newsKey;
 }
@@ -106,11 +87,11 @@ function activateUponEvent() {
     console.log('News API fetch below');
     getnews(newsApi);
     console.log('News API fetch above');
-    for (var i = fetchedList; i > 0; i--) {
+    for (var i = fetchedListLimit; i > 0; i--) {
         storeArray(('city-history-' + i), $('#history' + (i - 1)).text());
     }
     storeArray('city-history-0', $('#search-input').val());
-    for (var i = 0; i < fetchedList; i++) {
+    for (var i = 0; i < fetchedListLimit; i++) {
         $(('#history' + i)).text(retrieveStoredArray(('city-history-' + i)));
     }
     console.log('Event activated');
@@ -147,10 +128,9 @@ function getLatLon(URL) {
             lat = data.coord.lat;
             lon = data.coord.lon;
             weatherApi = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=imperial&exclude={part}&appid=' + weatherKey;
+            getWeather(weatherApi);
             tomtomApi = 'https://api.tomtom.com/traffic/services/4/flowSegmentData/relative0/10/json?point=' + lat + '%2C' + lon + '&unit=MPH&openLr=false&key=' + tomtomKey;
             getTomTom(tomtomApi);
-            getWeather(weatherApi);
-            googleMap = 'https://www.google.com/maps/embed/v1/view?key=' + googleAPIKey + '&center=' + lat + ',' + lon + '&zoom=18&maptype=satellite';
             initMap();
             window.initMap = initMap;
         })
@@ -173,14 +153,16 @@ function getWeather(URL) {
             console.log('Weather OneCall API fetch below');
             console.log(data);
             console.log('Weather OneCall API fetch above');
-            for (var i = 0; i < data.daily.length - 1; i++) {
-                $('#weather').append($('<div>').addClass('row weather').attr('id', 'weather' + i).text(
+            $('#weather').empty();
+            $('#weather').append($('<div>').addClass('row has-text-centered').attr('id', 'weather-title').text('Weather'));
+            for (var i = 0; i < data.daily.length; i++) {
+                $('#weather').append($('<div>').addClass('row weather').attr('id', 'weather' + i).text('-->' + 
                     dayjs.unix(data.daily[i].dt).format('YYYY-MM-DD') +
                     ': Conditions = ' + data.daily[i].weather[0].description +
                     '| sunrise @ ' + dayjs.unix(data.daily[i].sunrise).format('HH:mm:ss') +
                     '| sunset @ ' + dayjs.unix(data.daily[i].sunset).format('HH:mm:ss') +
-                    '| Day Temp = ' + data.daily[i].temp[1] +
-                    '| Night Temp = ' + data.daily[i].temp[4]
+                    '| Day Temp = ' + data.daily[i].temp.day +
+                    '| Night Temp = ' + data.daily[i].temp.night
                 ));
             }
         })
@@ -206,19 +188,15 @@ function getTomTom(URL) {
             console.log('TomTom API fetch above');
             trafficAlerts = data.flowSegmentData.roadClosure;
             // console.log(data.flowSegmentData.roadClosure)
+            $('#current-traffic').empty();
+            $('#current-traffic').append($('<div>').addClass('row has-text-centered').attr('id', 'traffic-title').text('Traffic'));
             if (data.flowSegmentData.roadClosure = 'false'){
-                $(('#traffic' + 1)).text("There are currently no road closures.");
+                $('#current-traffic').append($('<div>').addClass('row traffic').attr('id', 'traffic1').text('-->' + "There are currently no road closures."));
             } else {
-                $(('#traffic' + 1)).text("There are currently road closures.");
+                $('#current-traffic').append($('<div>').addClass('row traffic').attr('id', 'traffic1').text('-->' + "There are currently road closures."));
             };
-            $(('#traffic' + 2)).text('The current speed is' + data.flowSegmentData.currentSpeed + ' mph.');
-            $(('#traffic' + 3)).text('The Free Flow Speed (Average driver speed with no traffic) is ' + data.flowSegmentData.freeFlowSpeed + ' mph.');
-
-
-            $('#current-traffic').append($('<div>').addClass('row traffic').attr('id', 'traffic1').text("There are currently no road closures."));
-            $('#current-traffic').append($('<div>').addClass('row traffic').attr('id', 'traffic1')).text("There are currently road closures.");
-            $('#current-traffic').append($('<div>').addClass('row traffic').attr('id', 'traffic2')     );
-            $('#current-traffic').append($('<div>').addClass('row traffic').attr('id', 'traffic3')     );
+            $('#current-traffic').append($('<div>').addClass('row traffic').attr('id', 'traffic2').text('-->' + 'The current speed is ' + data.flowSegmentData.currentSpeed + ' mph.'));
+            $('#current-traffic').append($('<div>').addClass('row traffic').attr('id', 'traffic3').text('-->' + 'The Free Flow Speed (Average driver speed with no traffic) is ' + data.flowSegmentData.freeFlowSpeed + ' mph.'));
         })
         .catch(function (error) {
             console.log(error);
@@ -240,8 +218,10 @@ function getTicketMaster(URL) {
             console.log(data);
             console.log('TicketMaster API fetch above');
             todayEvents = data._embedded.events['0'].name;
+                $('#live-events').empty();
+                $('#live-events').append($('<div>').addClass('row has-text-centered').attr('id', 'events-title').text('Events'));
             for (i = 0; i < data._embedded.events.length; i++){
-                $('#live-events').append($('<a>').addClass('row events').attr( {id: 'events' + i, href: data._embedded.events[i].url, target: '_blank'} ).text(data._embedded.events[i].name));
+                $('#live-events').append($('<a>').addClass('row events').attr( {id: 'events' + i, href: data._embedded.events[i].url, target: '_blank'} ).text('-->' + data._embedded.events[i].dates.start.localDate + ' - ' + data._embedded.events[i].dates.start.localTime + ': ' + data._embedded.events[i].name));
                 $('#live-events').append($('<br>'));
             }            
         })
@@ -265,9 +245,11 @@ function getnews(newsApi) {
             console.log(data);
             console.log('News API fetch above');
             var news = data.results['0'].title;
-            for(var i = 0; i < data.results.length-1; i++){
-                // console.log(data.results[i].title)
-                $(('#media' + i)).text(data.results[i].title);
+            $('#news-reports').empty();
+            $('#news-reports').append($('<div>').addClass('row has-text-centered').attr('id', 'news-title').text('News'));
+            for(var i = 0; i < fetchedListLimit; i++){
+                $('#news-reports').append($('<a>').addClass('row news').attr( {id: 'news' + i, href: data.results[i].url, target: '_blank'} ).text('-->' + data.results[i].title));
+                $('#news-reports').append($('<br>'));
             }
             
         })
@@ -280,7 +262,7 @@ function getnews(newsApi) {
 
 function constructHeader() {
     $('#header').append($('<div>').addClass('row').attr('id', 'current-day'));
-    $('#header').append($('<div>').addClass('row').attr('id', 'radio-stream'));
+    // $('#header').append($('<div>').addClass('row').attr('id', 'radio-stream'));
 }
 
 function constructSearchBox() {
@@ -292,8 +274,8 @@ function constructSearchBox() {
 }
 
 function constructMain() {
-    $('#main').addClass('container-fluid is-widescreen');
-    $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly is-gapless is-1 is-Mobile').attr('id', 'all-container'));
+    $('#main').addClass('container-fluid');
+    $('#main').append($('<div>').addClass('columns is-flex-wrap-wrap is-flex-grow-1 is-justify-content-space-evenly is-gapless ').attr('id', 'all-container'));
 
     $('#all-container').append($('<div>').addClass('column box').attr('id', 'weather'));
     $('#weather').append($('<div>').addClass('row has-text-centered').attr('id', 'weather-title').text('Weather'));
@@ -301,18 +283,11 @@ function constructMain() {
     $('#live-events').append($('<div>').addClass('row has-text-centered').attr('id', 'events-title').text('Events'));
     $('#all-container').append($('<div>').addClass('column box').attr('id', 'current-traffic'));
     $('#current-traffic').append($('<div>').addClass('row has-text-centered').attr('id', 'traffic-title').text('Traffic'));
-    for (var i = 0; i < fetchedList; i++) {
-        $('#current-traffic').append($('<div>').addClass('row traffic').attr('id', 'traffic' + i));
-    }
-    $('#all-container').append($('<div>').addClass('column box').attr('id', 'media-reports'));
-    $('#media-reports').append($('<div>').addClass('row has-text-centered').attr('id', 'media-title').text('Media'));
-    for (var i = 0; i < fetchedList; i++) {
-        $('#media-reports').append($('<a>').addClass('row media').attr('id', 'media' + i));
-        $('#media-reports').append($('<br>'));
-    }
+    $('#all-container').append($('<div>').addClass('column box').attr('id', 'news-reports'));
+    $('#news-reports').append($('<div>').addClass('row has-text-centered').attr('id', 'news-title').text('News'));
     $('#all-container').append($('<div>').addClass('box').attr('id', 'search-history'));
     $('#search-history').append($('<div>').addClass('row has-text-centered').attr('id', 'history-title').text('Search History'));
-    for (var i = 0; i < fetchedList; i++) {
+    for (var i = 0; i < fetchedListLimit; i++) {
         $('#search-history').append($('<div>').addClass('row history').attr('id', 'history' + i));
     }
 }

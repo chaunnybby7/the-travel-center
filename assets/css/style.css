@@ -17,17 +17,72 @@ header {
     background-image: linear-gradient(270deg,#144795,#183c76);
     color: #ffffff;
 }
+
 .navbar {
     background-image: linear-gradient(270deg,#144795,#183c76);
     color: #ffffff;
     font-weight: 600;
 }
+
 .navbar a {
     color: #ffffff;
 }
 
-.page-title {
-    margin-left: -33px;
+.page-title img {
+    margin-left: -36px;
+}
+
+.page-title h1 {
+    margin-left: -28px;
+}
+
+.column {
+    min-height: 100px;
+    min-width: 100px;
+}
+
+.weather {
+    color: Black;
+    font-weight: bolder;
+    background-color: rgba(248, 241, 239, 0.75);
+    font-size: smaller;
+    /* mix-blend-mode: difference; */
+    border-bottom: 1px solid white;
+}
+
+.events {
+    color: white;
+    font-weight: bolder;
+    background-color: rgba(22, 22, 21, 0.75);
+    font-size: smaller;
+    /* mix-blend-mode: difference; */
+    border-bottom: 1px solid white;
+}
+
+.traffic {
+    color: black;
+    font-weight: bolder;
+    background-color: rgba(245, 238, 236, 0.75);
+    font-size: smaller;
+    /* mix-blend-mode: difference; */
+    border-bottom: 1px solid white;
+}
+
+.news {
+    color: white;
+    font-weight: bolder;
+    background-color: rgba(17, 17, 17, 0.75);
+    font-size: smaller;
+    /* mix-blend-mode: difference; */
+    border-bottom: 1px solid peac;
+}
+
+.history {
+    color: Black;
+    font-weight: bolder;
+    /* background-color: rgba(53, 46, 43, 0.33); */
+    font-size: smaller;
+    /* border-bottom: 1px solid white; */
 }
 
 #search-button {
@@ -44,63 +99,9 @@ header {
     border-radius: 5px;
 }
 
-.column {
-    min-height: 100px;
-}
-
 #search-container {
+    margin-top: 5px;
     margin-bottom: 33px;
-}
-
-#search-history {
-    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-image: radial-gradient(
-        lightgray 50%,
-        gray 100%);
-    color: whitesmoke;
-    border-radius: 15px;
-    font-weight: bolder;
-}
-
-#weather {
-    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-image: radial-gradient(
-        rgb(199, 168, 168) 50%,
-        gray 100%);
-        border-radius: 15px;
-        color: whitesmoke;
-        font-weight: bolder;
-}
-
-#live-events {
-    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-image: radial-gradient(
-        rgb(148, 142, 196) 50%,
-        gray 100%);
-        border-radius: 15px;
-        color: whitesmoke;
-        font-weight: bolder;
-}
-
-#current-traffic {
-    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-image: radial-gradient(
-        rgb(185, 157, 95) 50%,
-        gray 100%);
-        border-radius: 15px;
-        color: whitesmoke;
-        font-weight: bolder;
-}
-
-.history,
-.weather,
-.events,
-.traffic,
-.media {
-    color: white;
-    border-bottom: 1px solid white;
-    margin: 0;
-    padding: 0;
 }
 
 #map {
@@ -110,15 +111,71 @@ header {
     /* The width is the width of the web page */
   }
 
-#media-reports {
-    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-image: radial-gradient(
-        rgb(162, 115, 172) 50%,
+#search-history {
+    font-family: "SF Pro Text",
+    "SF Pro Icons",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+    background-image: radial-gradient(lightgray 50%,
         gray 100%);
-        border-radius: 15px;
-        color: whitesmoke;
-        font-weight: bolder;
+    color: whitesmoke;
+    border-radius: 15px;
+    font-weight: bolder;
+    }
+    
+#weather {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-image: radial-gradient(rgb(199, 168, 168) 50%,
+            gray 100%);
+    background: URL(../images/weather.jpg);
+    background-size: auto 100%;
+    background-position: 50% 50%;
+    border-radius: 15px;
+    color: black;
+    font-weight: bolder;
 }
 
+#live-events {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-image: radial-gradient(rgb(148, 142, 196) 50%,
+            gray 100%);
+    background: URL(../images/events.jpg);
+    background-size: auto 100%;
+    background-position: 50% 50%;
+    border-radius: 15px;
+    color: whitesmoke;
+    font-weight: bolder;
+}
 
+#current-traffic {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-image: radial-gradient(rgb(185, 157, 95) 50%,
+            gray 100%);
+    background: URL(../images/traffic.jpg);
+    background-size: auto 100%;
+    background-position: 50% 50%;
+    border-radius: 15px;
+    color: black;
+    font-weight: bolder;
+}
+
+#news-reports {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-image: radial-gradient(rgb(162, 115, 172) 50%,
+            gray 100%);
+    background-image: URL(../images/news.jpg);
+    background-size: auto 100%;
+    background-position: 50% 50%;
+    border-radius: 15px;
+    color: whitesmoke;
+    font-weight: bolder;
+}
+
+/* @media screen and (max-width: 1200px) {
+    #all-container {
+      flex-direction: column;
+    }
+  } */
 
